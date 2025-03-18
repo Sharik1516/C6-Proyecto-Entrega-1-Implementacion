@@ -91,4 +91,18 @@ public class CitaMedica {
             return citaMedicaRepository.save(cita);
         }
     }
+    @Service
+    public class CitaMedicaServiceRF8 {
+        @Autowired
+        private CitaMedicaRepository citaMedicaRepository;
+        @Autowired
+        private AfiliadoRepository afiliadoRepository;
+
+        public List<CitaMedica> obtenerCitasPorAfiliado(Long afiliadoId) {
+            Afiliado afiliado = afiliadoRepository.findById(afiliadoId)
+                    .orElseThrow(() -> new RuntimeException("Afiliado no encontrado"));
+
+            return citaMedicaRepository.findByOrden_Afiliado(afiliado);
+        }
+    }
 }
