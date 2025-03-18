@@ -1,0 +1,67 @@
+package uniandes.edu.co.proyecto.modelo;
+
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+@Entity
+@Table(name = "CitaMedica")
+public class CitaMedica {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer idCita;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaHora;
+
+    @ManyToOne
+    @JoinColumn(name = "idOrden")
+    private OrdenDeServicio orden;
+
+    @ManyToOne
+    @JoinColumn(name = "idServicio")
+    private IPSservicio servicio;
+
+    public CitaMedica() {}
+
+    public Integer getIdCita() {
+        return idCita;
+    }
+
+    public void setIdCita(Integer idCita) {
+        this.idCita = idCita;
+    }
+
+    public Date getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public OrdenDeServicio getOrden() {
+        return orden;
+    }
+
+    public void setOrden(OrdenDeServicio orden) {
+        this.orden = orden;
+    }
+
+    public IPSservicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(IPSservicio servicio) {
+        this.servicio = servicio;
+    }
+}
