@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name=EPS)
+@Table(name="EPS")
 public abstract class EPS {
 
     @Id

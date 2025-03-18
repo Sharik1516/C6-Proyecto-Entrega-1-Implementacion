@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name=Especialidad)
+@Table(name="Especialidad")
 public abstract class Especialidad {
 
     @Id

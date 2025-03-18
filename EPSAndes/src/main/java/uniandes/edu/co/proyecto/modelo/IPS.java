@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name=IPS)
+@Table(name="IPS")
 public abstract class IPS {
 
     @Id
@@ -24,6 +24,9 @@ public abstract class IPS {
         this.telefono = telefono;
         this.idEps = idEps;
     }
+
+    public IPS(){;}
+
     public Integer getNIT() {
         return NIT;
     }
