@@ -1,5 +1,8 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -60,6 +63,15 @@ public class Medico {
         this.idMedico = idMedico;
     }
 
+    @Service
+    public class MedicoService {
+        @Autowired
+        private MedicoRepository medicoRepository;
+
+        public Medico registrarMedico(Medico medico) {
+            return medicoRepository.save(medico);
+        }
+    }
     
     
 

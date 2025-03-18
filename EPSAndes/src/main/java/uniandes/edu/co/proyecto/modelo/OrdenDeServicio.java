@@ -3,6 +3,9 @@ package uniandes.edu.co.proyecto.modelo;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 //Sirve
 @Entity
 @Table(name = "OrdenDeServicio")
@@ -77,5 +80,15 @@ public class OrdenDeServicio {
 
     public void setServicio(IPSservicio servicio) {
         this.servicio = servicio;
+    }
+
+    @Service
+    public class OrdenServicioService {
+        @Autowired
+        private OrdenServicioRepository ordenServicioRepository;
+
+        public OrdenServicio registrarOrden(OrdenServicio orden) {
+            return ordenServicioRepository.save(orden);
+        }
     }
 }
