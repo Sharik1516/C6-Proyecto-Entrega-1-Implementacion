@@ -1,6 +1,10 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -63,5 +67,28 @@ public class CitaMedica {
 
     public void setServicio(IPSservicio servicio) {
         this.servicio = servicio;
+    }
+    @Service
+    public class CitaMedicaService {
+        @Autowired
+        private CitaMedicaRepository citaMedicaRepository;
+        @Autowired
+        private OrdenServicioRepository ordenServicioRepository;
+        @Autowired
+        private IPSRepository ipsRepository;
+
+        public CitaMedica agendarCita(Long ordenId, Long ipsId, LocalDateTime fechaHora) {
+            OrdenServicio orden = ordenServicioRepository.findById(ordenId)
+                    .orElseThrow(() -> new RuntimeException("Orden de servicio no encontrada"));
+            IPS ips = ipsRepository.findById(ipsId)
+                    .orElseThrow(() -> new RuntimeException("IPS no encontrada"));
+
+            CitaMedica cita = new CitaMedica();
+            cita.setOrden(orden);
+            cita.setIps(ips);
+            cita.setFechaHora(fechaHora);
+
+            return citaMedicaRepository.save(cita);
+        }
     }
 }

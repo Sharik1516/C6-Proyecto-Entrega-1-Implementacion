@@ -2,6 +2,9 @@ package uniandes.edu.co.proyecto.modelo;
 
 import java.sql.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -72,6 +75,16 @@ public abstract class Afiliado {
 
     public void setTipoAfiliado(String tipoAfiliado) {
         this.tipoAfiliado = tipoAfiliado;
+    }
+
+    @Service
+    public class AfiliadoService {
+        @Autowired
+        private AfiliadoRepository afiliadoRepository;
+
+        public Afiliado registrarAfiliado(Afiliado afiliado) {
+            return afiliadoRepository.save(afiliado);
+        }
     }
 
     

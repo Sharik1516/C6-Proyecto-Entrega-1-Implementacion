@@ -1,5 +1,8 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -33,5 +36,14 @@ public class ServicoIPS {
 
     public void setIps(IPS ips) {
         this.ips = ips;
+    }
+    @Service
+    public class ServicioSaludService {
+        @Autowired
+        private ServicioSaludRepository servicioSaludRepository;
+
+        public ServicioSalud registrarServicio(ServicioSalud servicio) {
+            return servicioSaludRepository.save(servicio);
+        }
     }
 }

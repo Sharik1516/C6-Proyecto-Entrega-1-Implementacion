@@ -1,5 +1,8 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -58,7 +61,19 @@ public abstract class IPS {
         this.idEps = idEps;
     }
 
-    
+    //RF1 - Registrar IPS
+
+    @Service
+    public class IPSService {
+        @Autowired
+        private IPSRepository ipsRepository;
+
+        public IPSEntity registrarIPS(IPSEntity ips) {
+            return ipsRepository.save(ips);
+        }
+    }
+
+   
 
 
 }
