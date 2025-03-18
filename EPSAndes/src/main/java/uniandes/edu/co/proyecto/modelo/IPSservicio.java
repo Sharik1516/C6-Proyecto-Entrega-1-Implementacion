@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,15 +14,34 @@ public class IPSservicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idServicio;
+    @ManyToOne
+    @JoinColumn(name = "idServicio")
+    private Servicio idServicio;
 
-    public IPSservicio() {}
+    @ManyToOne
+    @JoinColumn(name = "NIT")
+    private IPS NIT;
 
-    public Integer getIdServicio() {
+    public IPSservicio() {;}
+
+    public IPSservicio(IPS nIT) {
+        NIT = nIT;
+    }
+
+    public Servicio getIdServicio() {
         return idServicio;
     }
 
-    public void setIdServicio(Integer idServicio) {
+    public void setIdServicio(Servicio idServicio) {
         this.idServicio = idServicio;
     }
+
+    public IPS getNIT() {
+        return NIT;
+    }
+
+    public void setNIT(IPS nIT) {
+        NIT = nIT;
+    }
+
 }

@@ -10,14 +10,12 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Medico")
-public abstract class Medico {
+public class Medico {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 
-    @ManyToOne
-    @JoinColumn(name = "numeroDocumento")
-    private Usuario idMedico;
+    private Integer idMedico;
 
     @ManyToOne
     @JoinColumn(name = "idEspecialidad")
@@ -27,20 +25,14 @@ public abstract class Medico {
 
     @ManyToOne
     @JoinColumn(name = "idEPS")
-    private EPS eps;
+    private EPS idEps;
 
-    public Medico(Especialidad especialidad, String registroMedico, EPS eps) {
+    public Medico(Especialidad especialidad, String registroMedico, EPS idEps) {
         this.especialidad = especialidad;
         this.registroMedico = registroMedico;
-        this.eps = eps;
+        this.idEps = idEps;
     }
-    public Medico(){;}
-    public Usuario getIdMedico() {
-        return idMedico;
-    }
-    public void setIdMedico(Usuario idMedico) {
-        this.idMedico = idMedico;
-    }
+    
     public Especialidad getEspecialidad() {
         return especialidad;
     }
@@ -54,10 +46,18 @@ public abstract class Medico {
         this.registroMedico = registroMedico;
     }
     public EPS getEps() {
-        return eps;
+        return idEps;
     }
-    public void setEps(EPS eps) {
-        this.eps = eps;
+    public void setEps(EPS idEps) {
+        this.idEps = idEps;
+    }
+
+    public Integer getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(Integer idMedico) {
+        this.idMedico = idMedico;
     }
 
     

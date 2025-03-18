@@ -28,10 +28,16 @@ public class CitaMedica {
     private OrdenDeServicio orden;
 
     @ManyToOne
-    @JoinColumn(name = "idServicio")
-    private IPSservicio servicio;
+    @JoinColumn(name = "NIT")
+    private IPS NIT;
 
-    public CitaMedica() {}
+    public CitaMedica(Date fechaHora, OrdenDeServicio orden, IPS nIT) {
+        this.fechaHora = fechaHora;
+        this.orden = orden;
+        NIT = nIT;
+    }
+
+    public CitaMedica() {;}
 
     public Integer getIdCita() {
         return idCita;
@@ -57,11 +63,12 @@ public class CitaMedica {
         this.orden = orden;
     }
 
-    public IPSservicio getServicio() {
-        return servicio;
+    public IPS getNIT() {
+        return NIT;
     }
 
-    public void setServicio(IPSservicio servicio) {
-        this.servicio = servicio;
+    public void setNIT(IPS nIT) {
+        NIT = nIT;
     }
+
 }

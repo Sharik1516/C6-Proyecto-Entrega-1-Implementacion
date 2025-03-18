@@ -4,11 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="IPS")
-public abstract class IPS {
+public class IPS {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -17,6 +19,8 @@ public abstract class IPS {
     private String nombre;
     private String direccion;
     private String telefono;
+    @ManyToOne
+    @JoinColumn(name = "idEps")
     private EPS idEps;
     public IPS(String nombre, String direccion, String telefono, EPS idEps) {
         this.nombre = nombre;
