@@ -3,9 +3,6 @@ package uniandes.edu.co.proyecto.modelo;
 import jakarta.persistence.*;
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 //Sirve
 @Entity
 @Table(name = "OrdenDeServicio")
@@ -22,17 +19,21 @@ public class OrdenDeServicio {
 
     @ManyToOne
     @JoinColumn(name = "idAfiliado")
-    private Afiliado afiliado;
+    private Afiliado idAfiliado;
 
     @ManyToOne
     @JoinColumn(name = "idMedico")
-    private Medico medico;
+    private Medico idMedico;
 
-    @ManyToOne
-    @JoinColumn(name = "idServicio")
-    private IPSservicio servicio;
+    public OrdenDeServicio(Integer idOrden, Date fecha, String estado, Afiliado idAfiliado, Medico idMedico) {
+        this.idOrden = idOrden;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.idAfiliado = idAfiliado;
+        this.idMedico = idMedico;
+    }
 
-    public OrdenDeServicio() {}
+    public OrdenDeServicio() {;}
 
     public Integer getIdOrden() {
         return idOrden;
@@ -58,30 +59,23 @@ public class OrdenDeServicio {
         this.estado = estado;
     }
 
-    public Afiliado getAfiliado() {
-        return afiliado;
+    public Afiliado getIdAfiliado() {
+        return idAfiliado;
     }
 
-    public void setAfiliado(Afiliado afiliado) {
-        this.afiliado = afiliado;
+    public void setIdAfiliado(Afiliado idAfiliado) {
+        this.idAfiliado = idAfiliado;
     }
 
-    public Medico getMedico() {
-        return medico;
+    public Medico getIdMedico() {
+        return idMedico;
     }
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
+    public void setIdMedico(Medico idMedico) {
+        this.idMedico = idMedico;
     }
 
-    public IPSservicio getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(IPSservicio servicio) {
-        this.servicio = servicio;
-    }
-
+    /* 
     @Service
     public class OrdenServicioService {
         @Autowired
@@ -91,4 +85,5 @@ public class OrdenDeServicio {
             return ordenServicioRepository.save(orden);
         }
     }
+        */
 }

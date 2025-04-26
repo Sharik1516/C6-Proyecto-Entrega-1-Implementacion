@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -9,38 +10,26 @@ import jakarta.persistence.Table;
 @Table(name = "ContribuyenteBeneficiario")
 public class ContribuyenteBeneficiario {
 
-    @ManyToOne
-    @JoinColumn(name = "idAfiliado")
-    private Integer idBeneficiario;
-
-    @ManyToOne
-    @JoinColumn(name = "idAfiliado")
-    private Integer idContribuyente;
+    @EmbeddedId
+    private ContribuyenteBeneficiarioPK pk;
     
     @ManyToOne
     @JoinColumn(name = "idParentesco")
     private Parentesco idParentesco;
 
-    public ContribuyenteBeneficiario(Integer idBeneficiario, Integer idContribuyente, Parentesco idParentesco) {
-        this.idBeneficiario = idBeneficiario;
-        this.idContribuyente = idContribuyente;
+    public ContribuyenteBeneficiario(Afiliado idBeneficiario, Afiliado idContribuyente, Parentesco idParentesco) {
+        this.pk = new ContribuyenteBeneficiarioPK(idBeneficiario, idContribuyente);
         this.idParentesco = idParentesco;
     }
 
-    public Integer getIdBeneficiario() {
-        return idBeneficiario;
+    public ContribuyenteBeneficiario() {;}
+
+    public ContribuyenteBeneficiarioPK getPk() {
+        return pk;
     }
 
-    public void setIdBeneficiario(Integer idBeneficiario) {
-        this.idBeneficiario = idBeneficiario;
-    }
-
-    public Integer getIdContribuyente() {
-        return idContribuyente;
-    }
-
-    public void setIdContribuyente(Integer idContribuyente) {
-        this.idContribuyente = idContribuyente;
+    public void setPk(ContribuyenteBeneficiarioPK pk) {
+        this.pk = pk;
     }
 
     public Parentesco getIdParentesco() {
@@ -50,6 +39,7 @@ public class ContribuyenteBeneficiario {
     public void setIdParentesco(Parentesco idParentesco) {
         this.idParentesco = idParentesco;
     }
+
     
 
 }

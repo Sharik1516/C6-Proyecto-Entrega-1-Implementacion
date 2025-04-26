@@ -1,10 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import java.time.LocalDateTime;
 import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,15 +25,16 @@ public class CitaMedica {
 
     @ManyToOne
     @JoinColumn(name = "idOrden")
-    private OrdenDeServicio orden;
+    private OrdenDeServicio idOrden;
 
     @ManyToOne
     @JoinColumn(name = "NIT")
     private IPS NIT;
 
-    public CitaMedica(Date fechaHora, OrdenDeServicio orden, IPS nIT) {
+    public CitaMedica(Integer idCita, Date fechaHora, OrdenDeServicio idOrden, IPS nIT) {
+        this.idCita = idCita;
         this.fechaHora = fechaHora;
-        this.orden = orden;
+        this.idOrden = idOrden;
         NIT = nIT;
     }
 
@@ -59,12 +56,12 @@ public class CitaMedica {
         this.fechaHora = fechaHora;
     }
 
-    public OrdenDeServicio getOrden() {
-        return orden;
+    public OrdenDeServicio getIdOrden() {
+        return idOrden;
     }
 
-    public void setOrden(OrdenDeServicio orden) {
-        this.orden = orden;
+    public void setIdOrden(OrdenDeServicio idOrden) {
+        this.idOrden = idOrden;
     }
 
     public IPS getNIT() {
@@ -74,9 +71,10 @@ public class CitaMedica {
     public void setNIT(IPS nIT) {
         NIT = nIT;
     }
-<<<<<<< HEAD
 
-=======
+    
+    
+/* 
     @Service
     public class CitaMedicaService {
         @Autowired
@@ -114,5 +112,5 @@ public class CitaMedica {
             return citaMedicaRepository.findByOrden_Afiliado(afiliado);
         }
     }
->>>>>>> d22b9a153d2260b7e15b957fc03bb187a2fdf549
+*/
 }

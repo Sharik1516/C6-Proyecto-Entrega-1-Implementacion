@@ -16,6 +16,7 @@ public class Parentesco {
     public Parentesco(String descripcion) {
         Descripcion = descripcion;
     }
+    public Parentesco() {;}
     public Integer getIdParentesco() {
         return idParentesco;
     }

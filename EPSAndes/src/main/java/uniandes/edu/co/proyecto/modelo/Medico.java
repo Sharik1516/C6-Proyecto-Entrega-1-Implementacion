@@ -1,8 +1,5 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,30 +27,19 @@ public class Medico {
     @JoinColumn(name = "idEPS")
     private EPS idEps;
 
-    public Medico(Especialidad especialidad, String registroMedico, EPS idEps) {
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario idUsuario;
+
+    public Medico(Integer idMedico, Especialidad especialidad, String registroMedico, EPS idEps, Usuario idUsuario) {
+        this.idMedico = idMedico;
         this.especialidad = especialidad;
         this.registroMedico = registroMedico;
         this.idEps = idEps;
+        this.idUsuario = idUsuario;
     }
-    
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
-    }
-    public String getRegistroMedico() {
-        return registroMedico;
-    }
-    public void setRegistroMedico(String registroMedico) {
-        this.registroMedico = registroMedico;
-    }
-    public EPS getEps() {
-        return idEps;
-    }
-    public void setEps(EPS idEps) {
-        this.idEps = idEps;
-    }
+
+    public Medico() {;}
 
     public Integer getIdMedico() {
         return idMedico;
@@ -63,6 +49,40 @@ public class Medico {
         this.idMedico = idMedico;
     }
 
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public String getRegistroMedico() {
+        return registroMedico;
+    }
+
+    public void setRegistroMedico(String registroMedico) {
+        this.registroMedico = registroMedico;
+    }
+
+    public EPS getIdEps() {
+        return idEps;
+    }
+
+    public void setIdEps(EPS idEps) {
+        this.idEps = idEps;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
+   
+/* 
     @Service
     public class MedicoService {
         @Autowired
@@ -73,6 +93,6 @@ public class Medico {
         }
     }
     
-    
+    */
 
 }

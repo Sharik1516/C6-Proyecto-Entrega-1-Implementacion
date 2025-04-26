@@ -1,54 +1,31 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "IPSservicio")
 public class IPSservicio {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @ManyToOne
-    @JoinColumn(name = "idServicio")
-    private Servicio idServicio;
-
-    @ManyToOne
-    @JoinColumn(name = "NIT")
-    private IPS NIT;
+    @EmbeddedId
+    private IPSservicioPK pk;
 
     public IPSservicio() {;}
 
-    public IPSservicio(IPS nIT) {
-        NIT = nIT;
+    public IPSservicio(Servicio idServicio, IPS NIT) {
+        this.pk = new IPSservicioPK(idServicio, NIT);
     }
 
-    public Servicio getIdServicio() {
-        return idServicio;
+    public IPSservicioPK getPk() {
+        return pk;
     }
 
-    public void setIdServicio(Servicio idServicio) {
-        this.idServicio = idServicio;
-    }
-<<<<<<< HEAD
-
-    public IPS getNIT() {
-        return NIT;
+    public void setPk(IPSservicioPK pk) {
+        this.pk = pk;
     }
 
-    public void setNIT(IPS nIT) {
-        NIT = nIT;
-    }
-
-=======
+    
+/* 
     @Service
     public class IPSService {
         @Autowired
@@ -66,5 +43,5 @@ public class IPSservicio {
             ipsRepository.save(ips);
         }
     }
->>>>>>> d22b9a153d2260b7e15b957fc03bb187a2fdf549
+        */
 }

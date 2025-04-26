@@ -19,6 +19,7 @@ public class Servicio {
         this.nombre = nombre;
         Descripcion = descripcion;
     }
+    public Servicio() {;}
     public Integer getIdServicio() {
         return idServicio;
     }
