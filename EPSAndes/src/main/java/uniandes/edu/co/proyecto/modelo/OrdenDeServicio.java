@@ -1,7 +1,7 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 //Sirve
 @Entity

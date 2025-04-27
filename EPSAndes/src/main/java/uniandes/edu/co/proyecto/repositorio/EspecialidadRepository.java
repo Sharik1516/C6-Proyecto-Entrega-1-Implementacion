@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import uniandes.edu.co.proyecto.modelo.EPS;
 import uniandes.edu.co.proyecto.modelo.Especialidad;
 
 public interface EspecialidadRepository extends JpaRepository<Especialidad, Integer>{
@@ -17,7 +16,7 @@ public interface EspecialidadRepository extends JpaRepository<Especialidad, Inte
     Collection<Especialidad> darEspecialidades();
 
     @Query(value = "SELECT * FROM Especialidad WHERE idEspecialidad = :idEspecialidad", nativeQuery = true)
-    EPS darEspecialidad(@Param("idEspecialidad") int idEspecialidad);
+    Especialidad darEspecialidad(@Param("idEspecialidad") int idEspecialidad);
 
     @Modifying
     @Transactional
