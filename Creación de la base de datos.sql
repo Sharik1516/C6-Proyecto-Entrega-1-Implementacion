@@ -21,24 +21,6 @@ idEps NUMBER(5) NOT NULL,
 CONSTRAINT fk_EPS FOREIGN KEY (idEPS) REFERENCES EPS(idEPS)
 );
 
-CREATE TABLE Beneficiario(
-CONSTRAINT idBeneficiario FOREIGN KEY (idAfiliado) REFERENCES Afiliado(idAfiliado),
-parentesco VARCHAR2(50) NOT NULL,
-CONSTRAINT fk_Contribuyente FOREIGN KEY (idContribuyente) REFERENCES Contribuyente(idContribuyente),
-PRIMARY KEY (idBeneficiario)
-);
-
-CREATE TABLE Contribuyente(
-CONSTRAINT idContribuyente FOREIGN KEY (idAfiliado) REFERENCES Afiliado(idAfiliado),
-nombreEmpresa VARCHAR2(50) NOT NULL,
-PRIMARY KEY (idContribuyente)
-);
-
-CREATE TABLE AfiliadoBeneficiario(
-CONSTRAINT fk_Afiliado FOREIGN KEY (idAfiliado) REFERENCES Afiliado(idAfiliado),
-CONSTRAINT fk_Beneficiario FOREIGN KEY (idBeneficiario) REFERENCES Beneficiario(idBeneficiario)
-);
-
 CREATE TABLE Usuario(
 idUsuario NUMBER(5),
 tipoDocumento VARCHAR2(50) NOT NULL,
@@ -88,8 +70,10 @@ CREATE TABLE Servicio (
 CREATE TABLE IPSservicio(
 idServicio NUMBER(5) NOT NULL,
 NIT NUMBER(5) NOT NULL,
+Agenda VARCHAR(500),
 CONSTRAINT fk_Servicio_IPSServicio FOREIGN KEY (idServicio) REFERENCES Servicio(idServicio),
-CONSTRAINT fk_IPS_IPSServicio FOREIGN KEY (NIT) REFERENCES IPS(NIT)
+CONSTRAINT fk_IPS_IPSServicio FOREIGN KEY (NIT) REFERENCES IPS(NIT),
+PRIMARY KEY (idServicio, NIT)
 );
 
 CREATE TABLE CitaMedica (

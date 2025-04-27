@@ -32,7 +32,7 @@ public class IPSservicioController {
 
     @PostMapping("/ipsservicios/new/save")
     public String ipsservicioGuardar(@ModelAttribute IPSservicio ipsservicio) {
-        ipsservicioRepository.insertarIPSservicio();
+        ipsservicioRepository.insertarIPSservicio(ipsservicio.getAgenda());
         return "redirect:/ipsservicios";
     }
     
@@ -50,7 +50,7 @@ public class IPSservicioController {
 
     @PostMapping("/ipsservicios/{id}/edit/save")
     public String ipsservicioEditarGuardar(@PathVariable("id") IPSservicioPK id, @ModelAttribute IPSservicio ipsservicio) {
-        ipsservicioRepository.actualizarIPSservicio(id);
+        ipsservicioRepository.actualizarIPSservicio(id, ipsservicio.getAgenda());
         return "redirect:/ipsservicios";
     }
 

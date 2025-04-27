@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "12affad3-0ef0-4847-a323-2c41d7ea6f61",
+		"name": "Pruebas RF1-RF8 EPS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41692466"
+	},
+	"item": [
+		{
+			"name": "Registrar IPS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Clínica Santa María\",\n  \"direccion\": \"Calle 45 # 23-10\",\n  \"telefono\": \"3101234567\",\n  \"email\": \"contacto@clinicasantamaria.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/ipses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ipses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Servicio de Salud",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Consulta General\",\n  \"descripcion\": \"Consulta médica general sin especialidad\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/servicios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"servicios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asignar Servicio a IPS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"NIT\": 1,\n  \"idServicio\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/ipsservicios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ipsservicios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Médico",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"especialidad\": \"Pediatría\",\n  \"registroMedico\": \"3159876543\",\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/medicos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Afiliado",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fechaNacimiento\": \"2004-03-02\",\n  \"tipoAfiliado\": \"Contribuyente\",\n  \"direccion\": \"calle 19 #2a - 10\",\n  \"telefono\": \"3156958724\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/afiliados",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"afiliados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Orden de Servicio",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fecha\": \"2024-03-02\",\n  \"estado\": \"Vigente\",\n  \"afiliadoId\": 5,\n  \"medicoId\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/ordenes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ordenes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Agenda de Servicio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/servicios/1/agenda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"servicios",
+						"1",
+						"agenda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agendar Servicio de Salud",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fechaHora\": \"2025-05-15 : 10:30\",\n  \"idOrden\": 7,\n  \"NIT\": \"901140464\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/citasmedicas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"citasmedicas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Prestación de Servicio",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fechaHora\": \"2025-05-15 : 10:30\",\n  \"idOrden\": 7,\n  \"NIT\": \"901140464\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/citasmedicas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"citasmedicas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -9,10 +9,12 @@ import jakarta.persistence.Table;
 public class IPSservicio {
     @EmbeddedId
     private IPSservicioPK pk;
+    private String Agenda;
 
     public IPSservicio() {;}
 
-    public IPSservicio(Servicio idServicio, IPS NIT) {
+    public IPSservicio(Servicio idServicio, IPS NIT, String Agenda) {
+        this.Agenda = Agenda;
         this.pk = new IPSservicioPK(idServicio, NIT);
     }
 
@@ -23,6 +25,15 @@ public class IPSservicio {
     public void setPk(IPSservicioPK pk) {
         this.pk = pk;
     }
+
+    public String getAgenda() {
+        return Agenda;
+    }
+
+    public void setAgenda(String agenda) {
+        Agenda = agenda;
+    }
+    
 
     
 /* 

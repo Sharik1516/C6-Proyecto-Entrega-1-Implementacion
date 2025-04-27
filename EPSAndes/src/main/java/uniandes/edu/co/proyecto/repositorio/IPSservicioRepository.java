@@ -20,13 +20,13 @@ public interface IPSservicioRepository extends JpaRepository<IPSservicio, IPSser
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO IPSservicio (pk) VALUES(parranderos_sequence.nextval)", nativeQuery = true)
-    void insertarIPSservicio();
+    @Query(value = "INSERT INTO IPSservicio (pk, agenda) VALUES(parranderos_sequence.nextval, :agenda)", nativeQuery = true)
+    void insertarIPSservicio(@Param("agenda") String agenda);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE IPSservicio WHERE pk = :pk", nativeQuery = true)
-    void actualizarIPSservicio(@Param("pk") IPSservicioPK pk);
+    @Query(value = "UPDATE IPSservicio SET agenda= :agenda WHERE pk = :pk", nativeQuery = true)
+    void actualizarIPSservicio(@Param("pk") IPSservicioPK pk, @Param("agenda") String agenda);
 
     @Modifying
     @Transactional
