@@ -37,5 +37,5 @@ public interface PrestacionesRepository extends JpaRepository<Prestaciones, Inte
     void eliminarPrestacion(@Param("idPrestacion") int idPrestacion);
 
     @Query(value = "SELECT * FROM Prestaciones WHERE fechaInicio >= :fechaInico AND fechaFinal<= :fechaFinal", nativeQuery = true)
-    Collection<Prestaciones> darPrestacionesFecha();
+    Collection<Prestaciones> darPrestacionesFecha(@Param("fechaInico") Date fechaInico, @Param("fechaFinal") Date fechaFinal);
 }
