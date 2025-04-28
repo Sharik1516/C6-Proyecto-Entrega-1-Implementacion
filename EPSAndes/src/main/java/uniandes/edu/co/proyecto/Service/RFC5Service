@@ -14,14 +14,14 @@ public class RFC5Service {
 
     private final RFC5Repository rfc5Repository;
 
-    public RFC5Service(RFC5Repository rfc5Repositoryy) {
-        this.rfc5Repositoryy = rfc5Repositoryy;
+    public RFC5Service(RFC5Repository rfc5Repository) {
+        this.rfc5Repository = rfc5Repository;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public List<RFC5DTO> consultarDisponibilidad(Date fechaInicio, Date fechaFin, String codMedico, String codServicio, String codIps) throws InterruptedException {
+    public List<RFC5DTO> consultarDisponibilidad(Date fechaInicio, Date fechaFin, String idMedico, String idServicio, String NIT) throws InterruptedException {
         Thread.sleep(30000); // Temporizador de 30 segundos
-        List<Object[]> resultados = rfc5Repositoryy.consultarDisponibilidad(fechaInicio, fechaFin, codMedico, codServicio, codIps);
+        List<Object[]> resultados = rfc5Repository.consultarDisponibilidad(fechaInicio, fechaFin, idMedico, idServicio, NIT);
 
         List<RFC5DTO> rfc5DTOList = new ArrayList<>();
         for (Object[] row : resultados) {

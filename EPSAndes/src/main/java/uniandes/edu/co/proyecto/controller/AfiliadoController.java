@@ -34,7 +34,7 @@ public class AfiliadoController {
     @PostMapping("/afiliados/new/save")
     public String afiliadoGuardar(@ModelAttribute Afiliado afiliado) {
         afiliadoRepository.insertarAfiliado(afiliado.getFechaNacimiento(), afiliado.getTipoAfiliado(), 
-        afiliado.getTelefono(), afiliado.getDireccion(), afiliado.getIdUsuario());
+        afiliado.getTelefono(), afiliado.getDireccion(), afiliado.getId());
         return "redirect:/afiliados";
     }
     
@@ -52,7 +52,7 @@ public class AfiliadoController {
 
     @PostMapping("/afiliados/{id}/edit/save")
     public String afiliadoEditarGuardar(@PathVariable("id") int id, @ModelAttribute Afiliado afiliado) {
-        afiliadoRepository.actualizarAfiliado(id, afiliado.getFechaNacimiento(), afiliado.getTipoAfiliado(), afiliado.getTelefono(), afiliado.getDireccion(), afiliado.getIdUsuario());
+        afiliadoRepository.actualizarAfiliado(id, afiliado.getFechaNacimiento(), afiliado.getTipoAfiliado(), afiliado.getTelefono(), afiliado.getDireccion());
         return "redirect:/afiliados";
     }
 
