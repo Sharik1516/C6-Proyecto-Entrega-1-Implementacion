@@ -1,0 +1,39 @@
+package uniandes.edu.co.proyecto.Service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class RFC5Service {
+
+    private final RFC5Repository rfc5Repository;
+
+    public RFC5Service(RFC5Repository rfc5Repositoryy) {
+        this.rfc5Repositoryy = rfc5Repositoryy;
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public List<RFC5DTO> consultarDisponibilidad(Date fechaInicio, Date fechaFin, String codMedico, String codServicio, String codIps) throws InterruptedException {
+        Thread.sleep(30000); // Temporizador de 30 segundos
+        List<Object[]> resultados = rfc5Repositoryy.consultarDisponibilidad(fechaInicio, fechaFin, codMedico, codServicio, codIps);
+
+        List<RFC5DTO> rfc5DTOList = new ArrayList<>();
+        for (Object[] row : resultados) {
+            RFC5DTO dto = new RFC5DTO(
+                    (String) row[0],
+                    (Date) row[1],
+                    (Time) row[2],
+                    (String) row[3],
+                    (String) row[4]
+            );
+            rfc5DTOList.add(dto);
+        }
+        return rfc5DTOList;
+    }
+}
