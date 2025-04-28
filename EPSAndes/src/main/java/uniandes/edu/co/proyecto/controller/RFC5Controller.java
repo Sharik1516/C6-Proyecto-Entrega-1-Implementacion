@@ -15,7 +15,7 @@ public class RFC5Controller {
 
     private final RFC5Service rfc5Service;
 
-    public RFC5Controller(RF5Service rfc5Service) {
+    public RFC5Controller(RFC5Service rfc5Service) {
         this.rfc5Service = rfc5Service;
     }
 
