@@ -9,11 +9,11 @@ import jakarta.persistence.ManyToOne;
 @Embeddable
 public class ContribuyenteBeneficiarioPK implements Serializable {
     @ManyToOne
-    @JoinColumn(name = "idAfiliado", referencedColumnName = "idAfiliado")
+    @JoinColumn(name = "idBeneficiario", referencedColumnName = "idAfiliado")
     private Afiliado idBeneficiario;
 
     @ManyToOne
-    @JoinColumn(name = "idAfiliado", referencedColumnName = "idAfiliado")
+    @JoinColumn(name = "idContribuyente", referencedColumnName = "idAfiliado")
     private Afiliado idContribuyente;
 
     public ContribuyenteBeneficiarioPK(Afiliado idBeneficiario, Afiliado idContribuyente) {

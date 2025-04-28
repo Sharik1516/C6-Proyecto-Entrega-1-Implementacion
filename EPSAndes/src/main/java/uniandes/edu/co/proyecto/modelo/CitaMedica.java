@@ -20,7 +20,6 @@ public class CitaMedica {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idCita;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaHora;
 
     @ManyToOne

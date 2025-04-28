@@ -14,6 +14,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query(value = "SELECT * FROM Usuario", nativeQuery = true)
     Collection<Usuario> darUsuarios();
 
+    @Query( value = "SELECT EPSAndes_sequence.nextval FROM dual", nativeQuery = true )
+    Integer obtenerSiguienteId( );
+
     @Query(value = "SELECT * FROM Usuario WHERE idUsuario = :idUsuario", nativeQuery = true)
     Usuario darUsuario(@Param("idUsuario") int idUsuario);
 
