@@ -10,28 +10,39 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Afiliado;
-import uniandes.edu.co.proyecto.modelo.Usuario;
 
 public interface AfiliadoRepository extends JpaRepository<Afiliado, Integer> {
     
-    @Query(value = "SELECT * FROM Afiliado", nativeQuery = true)
+    @Query(value = "SELECT * FROM afiliados", nativeQuery = true)
     Collection<Afiliado> darAfiliados();
 
-    @Query(value = "SELECT * FROM Afiliado WHERE idAfiliado = :idAfiliado", nativeQuery = true)
-    Afiliado darAfiliado(@Param("idAfiliado") int idAfiliado);
+    @Query(value = "SELECT * FROM afiliados WHERE id = :id", nativeQuery = true)
+    Afiliado darAfiliado(@Param("id") int id);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Afiliado (idAfiliado, fechaNacimiento, direccion, telefono, tipoAfiliado, idUsuario) VALUES(parranderos_sequence.nextval, :fechaNacimiento, :direccion, :telefono, :tipoAfiliado, :idUsuario)", nativeQuery = true)
-    void insertarAfiliado(@Param("fechaNacimiento") Date fechaNacimiento, @Param("direccion") String direccion, @Param("telefono") String telefono, @Param("tipoAfiliado") String tipoAfiliado, @Param("idUsuario") Usuario idUsuario);
+    @Query(value = "INSERT INTO afiliados (fecha_nacimiento, tipo_afiliado, telefono, direccion, id) VALUES (:fechaNacimiento, :tipoAfiliado, :telefono, :direccion, :id)", nativeQuery = true)
+    void insertarAfiliado(
+        @Param("fechaNacimiento") Date fechaNacimiento,
+        @Param("tipoAfiliado") String tipoAfiliado,
+        @Param("telefono") String telefono,
+        @Param("direccion") String direccion,
+        @Param("id") Integer id
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Afiliado SET fechaNacimiento = :fechaNacimiento, direccion = :direccion, telefono = :telefono, tipoAfiliado = :tipoAfiliado, idUsuario = :idUsuario WHERE idAfiliado = :idAfiliado", nativeQuery = true)
-    void actualizarAfiliado(@Param("idAfiliado") int idAfiliado, @Param("fechaNacimiento") Date fechaNacimiento, @Param("direccion") String direccion, @Param("telefono") String telefono, @Param("tipoAfiliado") String tipoAfiliado, @Param("idUsuario") Usuario idUsuario);
+    @Query(value = "UPDATE afiliados SET fecha_nacimiento = :fechaNacimiento, tipo_afiliado = :tipoAfiliado, telefono = :telefono, direccion = :direccion WHERE id = :id", nativeQuery = true)
+    void actualizarAfiliado(
+        @Param("id") int id,
+        @Param("fechaNacimiento") Date fechaNacimiento,
+        @Param("tipoAfiliado") String tipoAfiliado,
+        @Param("telefono") String telefono,
+        @Param("direccion") String direccion
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Afiliado WHERE idAfiliado = :idAfiliado", nativeQuery = true)
-    void eliminarAfiliado(@Param("idAfiliado") int idAfiliado);
+    @Query(value = "DELETE FROM afiliados WHERE id = :id", nativeQuery = true)
+    void eliminarAfiliado(@Param("id") int id);
 }
