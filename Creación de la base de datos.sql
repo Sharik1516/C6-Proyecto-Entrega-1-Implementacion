@@ -103,7 +103,8 @@ CREATE TABLE Prestaciones (
     idPrestacion NUMBER(5) PRIMARY KEY,
     idCita NUMBER(5) NOT NULL,
     idServicio NUMBER(5) NOT NULL,
-    fechaHora DATE NOT NULL,
+    fechaInicio DATE NOT NULL,
+    fechaFinal DATE NOT NULL,
     CONSTRAINT fk_Prestaciones_Cita FOREIGN KEY (idCita) REFERENCES CitaMedica(idCita),
     CONSTRAINT fk_Prestaciones_Servicio FOREIGN KEY (idServicio) REFERENCES Servicio(idServicio)
 );

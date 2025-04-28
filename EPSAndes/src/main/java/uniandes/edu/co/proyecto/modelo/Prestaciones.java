@@ -23,13 +23,15 @@ public class Prestaciones {
     @ManyToOne
     @JoinColumn(name = "idServicio")
     private Servicio idServicio;
-    private Date fechaHora;
+    private Date fechaInicio;
+    private Date fechaFinal;
 
-    public Prestaciones(Integer idPrestacion, CitaMedica idCita, Servicio idServicio, Date fechaHora) {
+    public Prestaciones(Integer idPrestacion, CitaMedica idCita, Servicio idServicio, Date fechaInicio, Date fechaFinal) {
         this.idPrestacion = idPrestacion;
         this.idCita = idCita;
         this.idServicio = idServicio;
-        this.fechaHora = fechaHora;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaFinal;
     }
 
     public Prestaciones() {;}
@@ -58,13 +60,23 @@ public class Prestaciones {
         this.idServicio = idServicio;
     }
 
-    public Date getFechaHora() {
-        return fechaHora;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setFechaHora(Date fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
+
+    public Date getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    
 
     
     

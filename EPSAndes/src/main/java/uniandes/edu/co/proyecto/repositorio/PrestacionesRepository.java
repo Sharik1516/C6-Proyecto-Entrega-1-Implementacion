@@ -24,15 +24,18 @@ public interface PrestacionesRepository extends JpaRepository<Prestaciones, Inte
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO Prestaciones (idPrestacion, idCita, idServicio, fechaHora) VALUES(parranderos_sequence.nextval, :idCita, :idServicio, :fechaHora)", nativeQuery = true)
-    void insertarPrestacion(@Param("idCita") CitaMedica idCita, @Param("idServicio") Servicio idServicio, @Param("fechaHora") Date fechaHora);
+    void insertarPrestacion(@Param("idCita") CitaMedica idCita, @Param("idServicio") Servicio idServicio, @Param("fechaInicio") Date fechaInicio, @Param("fechaFinal") Date fechaFinal);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE Prestaciones SET idCita = :idCita, idServicio = :idServicio, fechaHora = :fechaHora WHERE idPrestacion = :idPrestacion", nativeQuery = true)
-    void actualizarPrestacion(@Param("idPrestacion") int idPrestacion, @Param("idCita") CitaMedica idCita, @Param("idServicio") Servicio idServicio, @Param("fechaHora") Date fechaHora);
+    void actualizarPrestacion(@Param("idPrestacion") int idPrestacion, @Param("idCita") CitaMedica idCita, @Param("idServicio") Servicio idServicio, @Param("fechaInicio") Date fechaInicio, @Param("fechaFinal") Date fechaFinal);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM Prestaciones WHERE idPrestacion = :idPrestacion", nativeQuery = true)
     void eliminarPrestacion(@Param("idPrestacion") int idPrestacion);
+
+    @Query(value = "SELECT * FROM Prestaciones WHERE fechaInicio >= :fechaInico AND fechaFinal<= :fechaFinal", nativeQuery = true)
+    Collection<Prestaciones> darPrestacionesFecha();
 }

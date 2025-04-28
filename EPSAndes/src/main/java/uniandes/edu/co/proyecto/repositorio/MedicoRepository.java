@@ -8,10 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import uniandes.edu.co.proyecto.modelo.EPS;
-import uniandes.edu.co.proyecto.modelo.Especialidad;
 import uniandes.edu.co.proyecto.modelo.Medico;
-import uniandes.edu.co.proyecto.modelo.Usuario;
 
 public interface MedicoRepository extends JpaRepository<Medico, Integer> {
 

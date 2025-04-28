@@ -31,7 +31,7 @@ public class PrestacionesController {
 
     @PostMapping("/prestaciones/new/save")
     public String prestacionGuardar(@ModelAttribute Prestaciones prestacion) {
-        prestacionesRepository.insertarPrestacion(prestacion.getIdCita(), prestacion.getIdServicio(), prestacion.getFechaHora());
+        prestacionesRepository.insertarPrestacion(prestacion.getIdCita(), prestacion.getIdServicio(), prestacion.getFechaInicio(), prestacion.getFechaFinal());
         return "redirect:/prestaciones";
     }
     
@@ -49,7 +49,7 @@ public class PrestacionesController {
 
     @PostMapping("/prestaciones/{id}/edit/save")
     public String prestacionEditarGuardar(@PathVariable("id") int id, @ModelAttribute Prestaciones prestacion) {
-        prestacionesRepository.actualizarPrestacion(id, prestacion.getIdCita(), prestacion.getIdServicio(), prestacion.getFechaHora());
+        prestacionesRepository.actualizarPrestacion(id, prestacion.getIdCita(), prestacion.getIdServicio(), prestacion.getFechaInicio(), prestacion.getFechaFinal());
         return "redirect:/prestaciones";
     }
 
