@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import uniandes.edu.co.proyecto.modelo.OrdenDeServicio;
 import uniandes.edu.co.proyecto.repositorio.OrdenDeServicioRepository;
 
 @Controller
+@RequestMapping( "/" )
 public class OrdenDeServicioController {
     
     @Autowired

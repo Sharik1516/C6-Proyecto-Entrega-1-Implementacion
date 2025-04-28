@@ -8,8 +8,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
+// cambiar porque contribuyente no puede tener contribuyente, hacer un nuevo archivo
 @Table(name = "ContribuyenteBeneficiario")
-public class ContribuyenteBeneficiario {
+public class ContribuyenteBeneficiario  {
 
     @EmbeddedId
     private ContribuyenteBeneficiarioPK pk;

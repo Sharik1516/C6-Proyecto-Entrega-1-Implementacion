@@ -18,22 +18,22 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer> {
     @Query( value = "SELECT u.*, m.ESPECIALIDAD, m.REGISTRO_MEDICO FROM MEDICOS m RIGHT JOIN USUARIOS u ON m.id = u.id", nativeQuery = true )
     Collection<Medico> darMedicos( );
 
-    @Query(value = "SELECT * FROM Medico WHERE idMedico = :idMedico", nativeQuery = true)
-    Medico darMedico(@Param("idMedico") Integer idMedico);
+    @Query( value = "SELECT u.*, m.ESPECIALIDAD, m.REGISTRO_MEDICO FROM MEDICOS m RIGHT JOIN USUARIOS u ON m.id = u.id WHERE u.id = :id", nativeQuery = true )
+    Medico obtenerMedico( @Param("id") Integer id );
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Medico (idMedico, especialidad, registroMedico, idEps, idUsuario) VALUES(parranderos_sequence.nextval, :especialidad, :registroMedico, :idEps, :idUsuario)", nativeQuery = true)
-    void insertarMedico(@Param("especialidad") Especialidad especialidad, @Param("registroMedico") String registroMedico, @Param("idEps") EPS idEps, @Param("idUsuario") Usuario idUsuario);
+    @Query( value = "INSERT INTO medicos( id, especialidad, registro_medico ) VALUES( :id, :especialidad, :registroMedico )", nativeQuery = true )
+    void insertarMedico( @Param("id") Integer id, @Param("especialidad") String especialidad, @Param("registroMedico") String registroMedico );
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Medico SET especialidad= :especialidad, registroMedico= :registroMedico, idEps= :idEps, idUsuario= :idUsuario WHERE idMedico = :idMedico", nativeQuery = true)
-    void actualizarMedico(@Param("idMedico") Integer idMedico, @Param("especialidad") String especialidad, @Param("registroMedico") String registroMedico);
+    @Query( value = "UPDATE medicos SET especialidad = :especialidad, registro_medico = :registroMedico WHERE id = :id", nativeQuery = true )
+    void actualizarMedico( @Param("id") Integer id, @Param("especialidad") String especialidad, @Param("registroMedico") String registroMedico );
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Medico WHERE idMedico = :idMedico", nativeQuery = true)
-    void eliminarMedico(@Param("idMedico") Integer idMedico);
+    @Query( value = "DELETE FROM medicos WHERE id = :id", nativeQuery = true )
+    void eliminarMedico( @Param("id") Integer id );
     
 }

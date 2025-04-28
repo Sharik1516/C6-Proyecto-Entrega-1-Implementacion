@@ -55,7 +55,7 @@ public class MedicoController
     {
         try
         {
-            Medico medico = medicoRepository.darMedico( id );
+            Medico medico = medicoRepository.obtenerMedico( id );
             if ( medico != null ) {
                 return ResponseEntity.ok( medico );
             }
