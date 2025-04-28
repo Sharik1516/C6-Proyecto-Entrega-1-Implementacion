@@ -41,7 +41,7 @@ public class MedicoController
             return ResponseEntity.ok( medicos );
 
         } catch (Exception e) {
-            log.error("Error al agendar cita", e);
+            log.error("Error al ....", e);
             // Este map dará visibilidad de qué está fallando
             Map<String, String> error = new HashMap<>();
             error.put("message", e.getMessage());
@@ -73,10 +73,11 @@ public class MedicoController
     {
         try
         {
-            medico.setIdMedico( usuarioRepository.obtenerSiguienteId() );
+            medico.setId( usuarioRepository.obtenerSiguienteId() );
 
-            medicoRepository.insertarMedico( medico.getEspecialidad(), medico.getRegistroMedico(),medico.getIdEps(), medico.getIdUsuario() );
-
+            medicoRepository.actualizarMedico( medico.getId(), medico.getEspecialidad(), medico.getRegistroMedico() );
+            usuarioRepository.actualizarUsuario( medico.getId(), medico.getNombre(), medico.getTipoDocumento(), medico.getNumeroDocumento() );
+            
             return ResponseEntity.status( HttpStatus.CREATED ).body( medico );
         }
         catch ( Exception e ) {
@@ -89,8 +90,11 @@ public class MedicoController
     {
         try
         {
-            medico.setIdMedico( id );
-            medicoRepository.actualizarMedico( id, medico.getEspecialidad(), medico.getRegistroMedico() ,medico.getIdEps(), medico.getIdUsuario() );
+            medico.setId( id );
+            
+            medicoRepository.actualizarMedico( id, medico.getEspecialidad(), medico.getRegistroMedico() );
+            usuarioRepository.actualizarUsuario( id, medico.getNombre(), medico.getTipoDocumento(), medico.getNumeroDocumento() );
+            
             return ResponseEntity.ok( medico );
         }
         catch ( Exception e ) {

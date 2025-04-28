@@ -21,12 +21,23 @@ idEps NUMBER(5) NOT NULL,
 CONSTRAINT fk_EPS FOREIGN KEY (idEPS) REFERENCES EPS(idEPS)
 );
 
-CREATE TABLE Usuario(
-idUsuario NUMBER(5),
-tipoDocumento VARCHAR2(50) NOT NULL,
-numeroDocumento VARCHAR2(50) NOT NULL UNIQUE,
-nombre VARCHAR2(50) NOT NULL,
-PRIMARY KEY (idUsuario)
+-- Creación de la tabla de Usuarios.
+CREATE TABLE USUARIOS
+(   ID NUMBER PRIMARY KEY, 
+    NOMBRE VARCHAR2(256 BYTE), 
+    TIPO_DOCUMENTO VARCHAR2(256 BYTE), -- (CC, TI, Pasaporte, etc.)
+    NUMERO_DOCUMENTO VARCHAR2(256 BYTE)
+);
+
+-- Creación de la tabla de Médicos.
+CREATE TABLE MEDICOS
+(   ID NUMBER PRIMARY KEY,
+    ESPECIALIDAD VARCHAR2(256 BYTE), 
+    REGISTRO_MEDICO VARCHAR2(256 BYTE), 
+
+    -- Establece una relación de herencia con la tabla USUARIOS, lo que significa que un médico es un usuario
+    CONSTRAINT FK_ID_MEDICO FOREIGN KEY(ID)
+    REFERENCES USUARIOS(ID)
 );
 
 CREATE TABLE Afiliado(
@@ -38,18 +49,6 @@ tipoAfiliado VARCHAR2(50) NOT NULL,
 idUsuario NUMBER(5) NOT NULL,
 CONSTRAINT fk_Afiliado_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
-
-CREATE TABLE Medico(
-idMedico NUMBER(5) PRIMARY KEY,
-registroMedico VARCHAR2(50) NOT NULL,
-idEPS NUMBER(5) NOT NULL,
-idEspecialidad NUMBER(5) NOT NULL,
-idUsuario NUMBER(5) NOT NULL,
-CONSTRAINT fk_EPS_Medico FOREIGN KEY (idEPS) REFERENCES EPS(idEPS),
-CONSTRAINT fk_Especialidad_Medico FOREIGN KEY (idEspecialidad) REFERENCES Especialidad(idEspecialidad),
-CONSTRAINT fk_Medico_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
-);
-
 
 CREATE TABLE OrdenDeServicio(
 idOrden NUMBER(5) PRIMARY KEY,
@@ -108,3 +107,14 @@ CREATE TABLE Prestaciones (
     CONSTRAINT fk_Prestaciones_Cita FOREIGN KEY (idCita) REFERENCES CitaMedica(idCita),
     CONSTRAINT fk_Prestaciones_Servicio FOREIGN KEY (idServicio) REFERENCES Servicio(idServicio)
 );
+select * from medicos;
+select * from ips;
+select * from eps;
+select * from especialidad;
+select * from usuarios;
+select * from afiliado;
+select * from ordenDeServicio;
+select * from servicio;
+select * from ipsservicio;
+select * from citamedica;
+select * from parentesco;

@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Afiliado")
-public class Afiliado {
+public class Afiliado extends Usuario {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
