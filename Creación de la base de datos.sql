@@ -99,3 +99,12 @@ CREATE TABLE ContribuyenteBeneficiario (
     CONSTRAINT fk_Beneficiario_Parentesco FOREIGN KEY (idParentesco) REFERENCES Parentesco(idParentesco),
     PRIMARY KEY (idBeneficiario, idContribuyente)
 );
+
+CREATE TABLE Prestaciones (
+    idPrestacion NUMBER(5) PRIMARY KEY,
+    idCita NUMBER(5) NOT NULL,
+    idServicio NUMBER(5) NOT NULL,
+    fechaHora DATE NOT NULL,
+    CONSTRAINT fk_Prestaciones_Cita FOREIGN KEY (idCita) REFERENCES CitaMedica(idCita),
+    CONSTRAINT fk_Prestaciones_Servicio FOREIGN KEY (idServicio) REFERENCES Servicio(idServicio)
+);
