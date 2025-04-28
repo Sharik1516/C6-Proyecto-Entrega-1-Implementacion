@@ -75,6 +75,40 @@
 			"response": []
 		},
 		{
+			"name": "Borrar Cita Medica",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/Cita_Medica",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Cita_Medica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Parentesco",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/parentesco",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"parentesco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Registrar IPS",
 			"request": {
 				"method": "POST",
