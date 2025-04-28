@@ -16,6 +16,12 @@ public class RFC4Service {
     private CitaMedicaRepository citaMedicaRepository;
 
     public List<CitaMedica> obtenerCitasPorAfiliadoYRangoFechas(Integer idAfiliado, Date fechaInicio, Date fechaFin) {
+        
+// ERROR en RFC4:
+// El método findByOrdenDeServicio_Afiliado_IdAfiliadoAndFechaHoraBetween(Integer, Date, Date) no existe en CitaMedicaRepository.
+// Solución: Se debe crear el método manualmente en el repositorio usando @Query o asegurarse que los nombres de las relaciones
+// (OrdenDeServicio -> Afiliado -> idAfiliado) estén correctamente mapeadas y nombradas en las entidades.
+// También puede ser necesario corregir la estructura de las clases si el path de atributos no es correcto.
         return citaMedicaRepository.findByOrdenDeServicio_Afiliado_IdAfiliadoAndFechaHoraBetween(idAfiliado, fechaInicio, fechaFin);
     }
 }
