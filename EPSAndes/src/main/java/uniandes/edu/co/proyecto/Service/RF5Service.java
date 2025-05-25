@@ -1,21 +1,19 @@
 package uniandes.edu.co.proyecto.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import uniandes.edu.co.proyecto.modelo.Servicio;
-import uniandes.edu.co.proyecto.repositorio.ServicioRepository;
+import org.springframework.web.bind.annotation.*;
+import uniandes.edu.co.proyecto.modelo.Afiliado;
+import uniandes.edu.co.proyecto.repositorio.AfiliadoRepository;
 
 @RestController
+@RequestMapping("/api/afiliados")
 public class RF5Service {
 
     @Autowired
-    private ServicioRepository servicioRepository;
+    private AfiliadoRepository afiliadoRepository;
 
-    @PostMapping("/servicios/registrar")
-    public Servicio registrarServicio(@RequestBody Servicio servicio) {
-        return servicioRepository.save(servicio);
+    @PostMapping("/registrar")
+    public Afiliado registrarAfiliado(@RequestBody Afiliado afiliado) {
+        return afiliadoRepository.save(afiliado);
     }
 }

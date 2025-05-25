@@ -1,89 +1,48 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.*;
-import java.sql.Date;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-//Sirve
-@Entity
-@Table(name = "OrdenDeServicio")
+import java.util.Date;
+
+@Document(collection = "ordenesServicio")
 public class OrdenDeServicio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idOrden;
+    private String id;
 
-    @Temporal(TemporalType.DATE)
     private Date fecha;
-
     private String estado;
+    private String idAfiliado;
+    private String idMedico;
+    private String idServicio;
 
-    @ManyToOne
-    @JoinColumn(name = "idAfiliado")
-    private Afiliado idAfiliado;
+    public OrdenDeServicio() {}
 
-    @ManyToOne
-    @JoinColumn(name = "idMedico")
-    private Medico idMedico;
-
-    public OrdenDeServicio(Integer idOrden, Date fecha, String estado, Afiliado idAfiliado, Medico idMedico) {
-        this.idOrden = idOrden;
+    public OrdenDeServicio(Date fecha, String estado, String idAfiliado, String idMedico, String idServicio) {
         this.fecha = fecha;
         this.estado = estado;
         this.idAfiliado = idAfiliado;
         this.idMedico = idMedico;
+        this.idServicio = idServicio;
     }
 
-    public OrdenDeServicio() {;}
+    // Getters y Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public Integer getIdOrden() {
-        return idOrden;
-    }
+    public Date getFecha() { return fecha; }
+    public void setFecha(Date fecha) { this.fecha = fecha; }
 
-    public void setIdOrden(Integer idOrden) {
-        this.idOrden = idOrden;
-    }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public Date getFecha() {
-        return fecha;
-    }
+    public String getIdAfiliado() { return idAfiliado; }
+    public void setIdAfiliado(String idAfiliado) { this.idAfiliado = idAfiliado; }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+    public String getIdMedico() { return idMedico; }
+    public void setIdMedico(String idMedico) { this.idMedico = idMedico; }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Afiliado getIdAfiliado() {
-        return idAfiliado;
-    }
-
-    public void setIdAfiliado(Afiliado idAfiliado) {
-        this.idAfiliado = idAfiliado;
-    }
-
-    public Medico getIdMedico() {
-        return idMedico;
-    }
-
-    public void setIdMedico(Medico idMedico) {
-        this.idMedico = idMedico;
-    }
-
-    /* 
-    @Service
-    public class OrdenServicioService {
-        @Autowired
-        private OrdenServicioRepository ordenServicioRepository;
-
-        public OrdenServicio registrarOrden(OrdenServicio orden) {
-            return ordenServicioRepository.save(orden);
-        }
-    }
-        */
+    public String getIdServicio() { return idServicio; }
+    public void setIdServicio(String idServicio) { this.idServicio = idServicio; }
 }

@@ -1,21 +1,23 @@
 package uniandes.edu.co.proyecto.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
+import uniandes.edu.co.proyecto.modelo.OrdenDeServicio;
+import uniandes.edu.co.proyecto.repositorio.OrdenDeServicioRepository;
 
-import uniandes.edu.co.proyecto.modelo.IPS;
-import uniandes.edu.co.proyecto.repositorio.IPSRepository;
+import java.util.List;
 
-@RestController
+@Service
 public class RF4Service {
 
     @Autowired
-    private IPSRepository ipsRepository;
+    private OrdenDeServicioRepository repository;
 
-    @PostMapping("/ips/registrar")
-    public IPS registrarIPS(@RequestBody IPS ips) {
-        return ipsRepository.save(ips);
+    public OrdenDeServicio crearOrden(OrdenDeServicio orden) {
+        return repository.save(orden);
+    }
+
+    public List<OrdenDeServicio> obtenerTodas() {
+        return repository.findAll();
     }
 }
