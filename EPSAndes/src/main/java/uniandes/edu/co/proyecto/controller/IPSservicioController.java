@@ -1,62 +1,43 @@
 package uniandes.edu.co.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.*;
 import uniandes.edu.co.proyecto.modelo.IPSservicio;
-import uniandes.edu.co.proyecto.modelo.IPSservicioPK;
 import uniandes.edu.co.proyecto.repositorio.IPSservicioRepository;
 
-@Controller
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/ips-servicios")
 public class IPSservicioController {
-    
+
     @Autowired
     private IPSservicioRepository ipsservicioRepository;
 
-    @GetMapping("/ipsservicios")
-    public String ipsservicios(Model model) {
-        model.addAttribute("ipsservicios", ipsservicioRepository.darIPSESservicio());
-        return "ipsservicios";
-    }
-    
-    @GetMapping("/ipsservicios/new")
-    public String ipsservicioform(Model model) {
-        model.addAttribute("ipsservicio", new IPSservicio());
-        return "ipsservicioNuevo";
+    @GetMapping
+    public List<IPSservicio> getAll() {
+        return ipsservicioRepository.findAll();
     }
 
-    @PostMapping("/ipsservicios/new/save")
-    public String ipsservicioGuardar(@ModelAttribute IPSservicio ipsservicio) {
-        ipsservicioRepository.insertarIPSservicio(ipsservicio.getAgenda());
-        return "redirect:/ipsservicios";
-    }
-    
-    @GetMapping("/ipsservicios/{id}/edit")
-    public String ipsservicioEditarForm(@PathVariable("id") IPSservicioPK id, Model model) {
-        IPSservicio ipsservicio = ipsservicioRepository.darIPSservicio(id);
-        if(ipsservicio != null) {
-            model.addAttribute("ipsservicio", ipsservicio);
-            return "ipsservicioEditar";
-        }else {
-            return "redirect:/ipsservicios";
-        }
-        
+    @GetMapping("/{id}")
+    public Optional<IPSservicio> getById(@PathVariable String id) {
+        return ipsservicioRepository.findById(id);
     }
 
-    @PostMapping("/ipsservicios/{id}/edit/save")
-    public String ipsservicioEditarGuardar(@PathVariable("id") IPSservicioPK id, @ModelAttribute IPSservicio ipsservicio) {
-        ipsservicioRepository.actualizarIPSservicio(id, ipsservicio.getAgenda());
-        return "redirect:/ipsservicios";
+    @PostMapping
+    public IPSservicio create(@RequestBody IPSservicio ipsservicio) {
+        return ipsservicioRepository.save(ipsservicio);
     }
 
-    @GetMapping("/ipsservicios/{id}/delete")
-    public String ipsservicioEliminar(@PathVariable("id") IPSservicioPK id) {
-        ipsservicioRepository.eliminarIPSservicio(id);
-        return "redirect:/ipsservicios";
+    @PutMapping("/{id}")
+    public IPSservicio update(@PathVariable String id, @RequestBody IPSservicio updated) {
+        updated.setId(id);
+        return ipsservicioRepository.save(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        ipsservicioRepository.deleteById(id);
     }
 }

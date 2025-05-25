@@ -20,10 +20,10 @@ public class OrdenDeServicioController {
         return ordenRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Optional<OrdenDeServicio> getById(@PathVariable String id) {
-        return ordenRepository.findById(id);
-    }
+ @GetMapping("/{id}")
+public Optional<OrdenDeServicio> getById(@PathVariable String id) {
+    return ordenRepository.findById(id);
+}
 
     @PostMapping
     public OrdenDeServicio create(@RequestBody OrdenDeServicio orden) {
