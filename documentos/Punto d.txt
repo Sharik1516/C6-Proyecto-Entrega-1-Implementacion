@@ -1,0 +1,215 @@
+// Usuario
+db.runCommand({
+  collMod: "Usuario",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombre", "tipoDocumento", "numeroDocumento"],
+      properties: {
+        nombre: { bsonType: "string" },
+        tipoDocumento: { bsonType: "string" },
+        numeroDocumento: { bsonType: "int" }
+      }
+    }
+  }
+});
+
+// Afiliado
+db.runCommand({
+  collMod: "Afiliado",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["fechaNacimiento", "direccion", "telefono", "tipoAfiliado", "idUsuario"],
+      properties: {
+        fechaNacimiento: { bsonType: "date" },
+        direccion: { bsonType: "string" },
+        telefono: { bsonType: "double" },
+        tipoAfiliado: { enum: ["Contribuyente", "Beneficiario"] },
+        idUsuario: { bsonType: "objectId" }
+      }
+    }
+  }
+});
+
+// Contribuyente
+db.runCommand({
+  collMod: "Contribuyente",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombreEmpresa", "idAfiliado"],
+      properties: {
+        nombreEmpresa: { bsonType: "string" },
+        idAfiliado: { bsonType: "objectId" }
+      }
+    }
+  }
+});
+
+// Beneficiario
+db.runCommand({
+  collMod: "Beneficiario",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["parentesco", "idAfiliado", "idContribuyente"],
+      properties: {
+        parentesco: { bsonType: "string" },
+        idAfiliado: { bsonType: "objectId" },
+        idContribuyente: { bsonType: "objectId" }
+      }
+    }
+  }
+});
+
+// EPS
+db.runCommand({
+  collMod: "EPS",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombre", "direccion", "telefono"],
+      properties: {
+        nombre: { bsonType: "string" },
+        direccion: { bsonType: "string" },
+        telefono: { bsonType: "int" }
+      }
+    }
+  }
+});
+
+// IPS
+db.runCommand({
+  collMod: "IPS",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["NIT", "nombre", "direccion", "telefono", "idEPS"],
+      properties: {
+        NIT: { bsonType: "int" },
+        nombre: { bsonType: "string" },
+        direccion: { bsonType: "string" },
+        telefono: { bsonType: "int" },
+        idEPS: { bsonType: "objectId" }
+      }
+    }
+  }
+});
+
+// Especialidad
+db.runCommand({
+  collMod: "Especialidad",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombre"],
+      properties: {
+        nombre: { bsonType: "string" }
+      }
+    }
+  }
+});
+
+// Medico
+db.runCommand({
+  collMod: "Medico",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["registroMedico", "idEspecialidad", "idIPS", "idUsuario"],
+      properties: {
+        registroMedico: { bsonType: "int" },
+        idEspecialidad: { bsonType: "objectId" },
+        idIPS: { bsonType: "objectId" },
+        idUsuario: { bsonType: "objectId" }
+      }
+    }
+  }
+});
+
+// Servicio
+db.runCommand({
+  collMod: "Servicio",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["nombre", "descripcion"],
+      properties: {
+        nombre: { bsonType: "string" },
+        descripcion: { bsonType: "string" }
+      }
+    }
+  }
+});
+
+// IPSServicio
+db.runCommand({
+  collMod: "IPSServicio",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["idServicio", "idIPS", "disponibilidad"],
+      properties: {
+        idServicio: { bsonType: "objectId" },
+        idIPS: { bsonType: "objectId" },
+        disponibilidad: {
+          bsonType: "array",
+          items: { bsonType: "date" }
+        }
+      }
+    }
+  }
+});
+
+// OrdenDeServicio
+db.runCommand({
+  collMod: "OrdenDeServicio",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["fechaHora", "estado", "idAfiliado", "idMedico", "idServicio"],
+      properties: {
+        fechaHora: { bsonType: "date" },
+        estado: { bsonType: "string" },
+        idAfiliado: { bsonType: "objectId" },
+        idMedico: { bsonType: "objectId" },
+        idServicio: { bsonType: "objectId" }
+      }
+    }
+  }
+});
+
+// CitaMedica
+db.runCommand({
+  collMod: "CitaMedica",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["fechaHora", "idAfiliado", "idMedico", "idIPS", "ordenDeServicio"],
+      properties: {
+        fechaHora: { bsonType: "date" },
+        idAfiliado: { bsonType: "objectId" },
+        idMedico: { bsonType: "objectId" },
+        idIPS: { bsonType: "objectId" },
+        ordenDeServicio: { bsonType: "objectId" }
+      }
+    }
+  }
+});
+
+// Prestaciones
+db.runCommand({
+  collMod: "Prestaciones",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["fechaHora", "idCita", "idServicio"],
+      properties: {
+        fechaHora: { bsonType: "date" },
+        idCita: { bsonType: "objectId" },
+        idServicio: { bsonType: "objectId" }
+      }
+    }
+  }
+});
