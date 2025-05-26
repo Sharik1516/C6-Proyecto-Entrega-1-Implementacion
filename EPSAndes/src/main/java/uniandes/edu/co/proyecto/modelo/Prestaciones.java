@@ -1,62 +1,49 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import java.sql.Date;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.util.Date;
 
-@Entity
-@Table(name="Prestaciones")
+@Document(collection = "prestaciones")
 public class Prestaciones {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-
-    private Integer idPrestacion;
-    @ManyToOne
-    @JoinColumn(name = "idCita")
-    private CitaMedica idCita;
-    @ManyToOne
-    @JoinColumn(name = "idServicio")
-    private Servicio idServicio;
+    private String id;
+    private String idCita;
+    private String idServicio;
     private Date fechaInicio;
     private Date fechaFinal;
 
-    public Prestaciones(Integer idPrestacion, CitaMedica idCita, Servicio idServicio, Date fechaInicio, Date fechaFinal) {
-        this.idPrestacion = idPrestacion;
+    public Prestaciones() {}
+
+    public Prestaciones(String idCita, String idServicio, Date fechaInicio, Date fechaFinal) {
         this.idCita = idCita;
         this.idServicio = idServicio;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
     }
 
-    public Prestaciones() {;}
-
-    public Integer getIdPrestacion() {
-        return idPrestacion;
+    public String getId() {
+        return id;
     }
 
-    public void setIdPrestacion(Integer idPrestacion) {
-        this.idPrestacion = idPrestacion;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public CitaMedica getIdCita() {
+    public String getIdCita() {
         return idCita;
     }
 
-    public void setIdCita(CitaMedica idCita) {
+    public void setIdCita(String idCita) {
         this.idCita = idCita;
     }
 
-    public Servicio getIdServicio() {
+    public String getIdServicio() {
         return idServicio;
     }
 
-    public void setIdServicio(Servicio idServicio) {
+    public void setIdServicio(String idServicio) {
         this.idServicio = idServicio;
     }
 
@@ -75,9 +62,4 @@ public class Prestaciones {
     public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
-
-    
-
-    
-    
 }

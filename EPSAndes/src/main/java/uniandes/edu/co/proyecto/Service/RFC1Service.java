@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import uniandes.edu.co.proyecto.repositorio.PrestacionesRepository;
 import uniandes.edu.co.proyecto.modelo.Prestaciones;
+import uniandes.edu.co.proyecto.repositorio.PrestacionesRepository;
 
 @Service
 public class RFC1Service {
@@ -17,12 +17,9 @@ public class RFC1Service {
 
     public List<Prestaciones> obtenerPrestacionesProximas() {
         Date fechaActual = new Date();
-        long cuatroSemanasEnMilisegundos = 28L * 24L * 60L * 60L * 1000L; // 28 días
-        Date fechaFutura = new Date(fechaActual.getTime() + cuatroSemanasEnMilisegundos);
-// ERROR en RFC1:
-// El método findByFechaHoraBetween(Date, Date) no existe en PrestacionesRepository.
-// Solución: Se debe crear un método en el PrestacionesRepository con la anotación @Query, o corregir el nombre del método
-// de acuerdo al atributo real sobre el que se quiere buscar (por ejemplo, usando correctamente fechaHora si aplica).
-        return prestacionesRepository.findByFechaHoraBetween(fechaActual, fechaFutura);
+        long cuatroSemanasEnMilis = 28L * 24L * 60L * 60L * 1000L;
+        Date fechaFutura = new Date(fechaActual.getTime() + cuatroSemanasEnMilis);
+
+        return prestacionesRepository.findByFechaInicioBetween(fechaActual, fechaFutura);
     }
 }

@@ -70,7 +70,6 @@ public class CitaMedica {
     }
 
     
-    
 /* 
     @Service
     public class CitaMedicaService {

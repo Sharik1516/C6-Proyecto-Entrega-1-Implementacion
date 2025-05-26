@@ -51,4 +51,14 @@ public class IPSservicio {
     public void setDisponibilidad(String disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
+
+    private boolean activo;
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
 }
