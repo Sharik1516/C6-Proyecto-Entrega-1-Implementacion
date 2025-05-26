@@ -2,8 +2,7 @@ package uniandes.edu.co.proyecto.modelo;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "IPSservicio")
+@Document(collection = "ipsServicios")
 public class IPSservicio {
 
     @EmbeddedId
@@ -21,6 +20,7 @@ public class IPSservicio {
 
     private String agenda;
 
+    public IPSservicio() {}
     public IPSservicio() {}
 
     public IPSservicio(Servicio servicio, IPS ips, String agenda) {

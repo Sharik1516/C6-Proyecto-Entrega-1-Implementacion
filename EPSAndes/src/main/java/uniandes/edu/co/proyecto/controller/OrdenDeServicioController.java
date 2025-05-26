@@ -13,7 +13,9 @@ import java.util.List;
 @RequestMapping("/ordenes")
 public class OrdenDeServicioController {
 
+
     @Autowired
+    private OrdenDeServicioRepository ordenRepository;
     private OrdenDeServicioRepository ordenRepository;
 
     @GetMapping

@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/ipsservicios")
 public class IPSservicioController {
 
+
     @Autowired
     private IPSservicioRepository ipsServicioRepository;
 

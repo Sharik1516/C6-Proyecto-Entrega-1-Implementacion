@@ -40,21 +40,11 @@ public class OrdenDeServicio {
         this.idOrden = idOrden;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
+    public Date getFecha() { return fecha; }
+    public void setFecha(Date fecha) { this.fecha = fecha; }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
     public Afiliado getAfiliado() {
         return afiliado;

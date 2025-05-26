@@ -8,10 +8,15 @@ import jakarta.persistence.*;
 @PrimaryKeyJoinColumn(name = "idUsuario")
 public class Afiliado extends Usuario {
 
+    private String nombre;
+    private String tipoDocumento;
+    private String numeroDocumento;
     private Date fechaNacimiento;
     private String direccion;
     private String telefono;
     private String tipoAfiliado;
+
+    public Afiliado() {}
 
     public Afiliado(String nombre, String tipoDocumento, String numeroDocumento,
                     Date fechaNacimiento, String direccion, String telefono, String tipoAfiliado) {
@@ -22,7 +27,37 @@ public class Afiliado extends Usuario {
         this.tipoAfiliado = tipoAfiliado;
     }
 
-    public Afiliado() {}
+    public String getIdAfiliado() {
+        return idAfiliado;
+    }
+
+    public void setIdAfiliado(String idAfiliado) {
+        this.idAfiliado = idAfiliado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
 
     public Date getFechaNacimiento() {
         return fechaNacimiento;
