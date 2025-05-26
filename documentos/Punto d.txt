@@ -20,13 +20,36 @@ db.runCommand({
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["fechaNacimiento", "direccion", "telefono", "tipoAfiliado", "idUsuario"],
-      properties: {
-        fechaNacimiento: { bsonType: "date" },
-        direccion: { bsonType: "string" },
-        telefono: { bsonType: "double" },
-        tipoAfiliado: { enum: ["Contribuyente", "Beneficiario"] },
-        idUsuario: { bsonType: "objectId" }
+      required: [
+      'fechaNacimiento',
+      'direccion',
+      'telefono',
+      'tipoAfiliado',
+      'idUsuario',
+      'idEPS'
+    ],
+    properties: {
+      fechaNacimiento: {
+        bsonType: 'date'
+      },
+      direccion: {
+        bsonType: 'string'
+      },
+      telefono: {
+        bsonType: 'double'
+      },
+      tipoAfiliado: {
+        'enum': [
+          'Contribuyente',
+          'Beneficiario'
+        ]
+      },
+      idUsuario: {
+        bsonType: 'objectId'
+      },
+      idEPS: {
+        bsonType: 'objectId'
+      }
       }
     }
   }
