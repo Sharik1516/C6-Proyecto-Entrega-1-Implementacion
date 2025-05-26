@@ -32,16 +32,18 @@ public class RF7Service {
             @RequestParam String nitIPS,
             @RequestParam Date fechaHora) {
 
-        OrdenDeServicio orden = ordenDeServicioRepository.findById(idOrden)
+        OrdenDeServicio orden = ordenDeServicioRepository.findById(Long.parseLong(idOrden))
                 .orElseThrow(() -> new RuntimeException("Orden de servicio no encontrada"));
 
-        IPS ips = ipsRepository.findById(Integer.parseInt(nitIPS))
+
+        IPS ips = ipsRepository.findById(Long.parseLong(nitIPS))
                 .orElseThrow(() -> new RuntimeException("IPS no encontrada"));
+
 
         CitaMedica cita = new CitaMedica();
         cita.setFechaHora(new java.sql.Date(fechaHora.getTime()));
         cita.setIdOrden(orden);
-        cita.setNIT(ips);
+        cita.setIps(ips);
 
         citaMedicaRepository.save(cita);
 

@@ -2,7 +2,8 @@ package uniandes.edu.co.proyecto.modelo;
 
 import jakarta.persistence.*;
 
-@Document(collection = "ipsServicios")
+@Entity
+@Table(name = "IPSservicios")
 public class IPSservicio {
 
     @EmbeddedId
@@ -20,8 +21,9 @@ public class IPSservicio {
 
     private String agenda;
 
-    public IPSservicio() {}
-    public IPSservicio() {}
+    public IPSservicio() {
+        // Constructor vacio unico
+    }
 
     public IPSservicio(Servicio servicio, IPS ips, String agenda) {
         this.pk = new IPSservicioPK(servicio.getIdServicio(), ips.getNIT());

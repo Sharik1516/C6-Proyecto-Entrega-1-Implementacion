@@ -1,18 +1,11 @@
 package uniandes.edu.co.proyecto.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import uniandes.edu.co.proyecto.modelo.*;
+import uniandes.edu.co.proyecto.repositorio.*;
 
-import uniandes.edu.co.proyecto.modelo.IPS;
-import uniandes.edu.co.proyecto.modelo.Servicio;
-import uniandes.edu.co.proyecto.modelo.IPSservicio;
-import uniandes.edu.co.proyecto.repositorio.IPSRepository;
-import uniandes.edu.co.proyecto.repositorio.ServicioRepository;
-import uniandes.edu.co.proyecto.repositorio.IPSservicioRepository;
-
-@Service
+@RestController
 public class RF6Service {
 
     @Autowired
@@ -26,22 +19,22 @@ public class RF6Service {
 
     @PostMapping("/ips/asignar-servicio")
     public String asignarServicioAIPS(@RequestParam String nit, @RequestParam String idServicio) {
-        Integer nitInt = Integer.parseInt(nit);
-        IPS ips = ipsRepository.findById(nitInt)
-                .orElseThrow(() -> new RuntimeException("IPS no encontrada"));
 
-        Integer idServicioInt = Integer.parseInt(idServicio);
-        Servicio servicio = servicioRepository.findById(idServicioInt)
-                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+        IPS ips = ipsRepository.darIPS(Long.parseLong(nit));
 
-        IPSservicio ipsservicio = new IPSservicio();
-        ipsservicio.setIdServicio(String.valueOf(servicio.getIdServicio()));
-        ipsservicio.setNitIPS(String.valueOf(ips.getNIT()));
-        ipsservicio.setActivo(true);
-        ipsservicioRepository.save(ipsservicio);
+        if (ips == null) throw new RuntimeException("IPS no encontrada");
+
+        Servicio servicio = servicioRepository.darServicio(Long.parseLong(idServicio));
+        if (servicio == null) throw new RuntimeException("Servicio no encontrado");
+
+        IPSservicio ipsServicio = new IPSservicio();
+        ipsServicio.setPk(new IPSservicioPK(servicio.getIdServicio(), ips.getNIT()));
+        ipsServicio.setServicio(servicio);
+        ipsServicio.setIps(ips);
+        ipsServicio.setAgenda("[]"); // o un arreglo vacio u otra logica
+
+        ipsservicioRepository.save(ipsServicio);
 
         return "Servicio asignado correctamente a la IPS.";
     }
 }
-
-

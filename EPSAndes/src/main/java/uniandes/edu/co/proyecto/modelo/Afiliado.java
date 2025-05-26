@@ -1,16 +1,15 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import java.sql.Date;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "afiliados")
 @PrimaryKeyJoinColumn(name = "idUsuario")
 public class Afiliado extends Usuario {
 
-    private String nombre;
-    private String tipoDocumento;
-    private String numeroDocumento;
     private Date fechaNacimiento;
     private String direccion;
     private String telefono;
@@ -18,45 +17,12 @@ public class Afiliado extends Usuario {
 
     public Afiliado() {}
 
-    public Afiliado(String nombre, String tipoDocumento, String numeroDocumento,
-                    Date fechaNacimiento, String direccion, String telefono, String tipoAfiliado) {
+    public Afiliado(String nombre, String tipoDocumento, String numeroDocumento, Date fechaNacimiento, String direccion, String telefono, String tipoAfiliado) {
         super(nombre, tipoDocumento, numeroDocumento);
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
         this.telefono = telefono;
         this.tipoAfiliado = tipoAfiliado;
-    }
-
-    public String getIdAfiliado() {
-        return idAfiliado;
-    }
-
-    public void setIdAfiliado(String idAfiliado) {
-        this.idAfiliado = idAfiliado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
     }
 
     public Date getFechaNacimiento() {

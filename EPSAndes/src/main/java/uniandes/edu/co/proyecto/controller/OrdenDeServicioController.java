@@ -16,7 +16,6 @@ public class OrdenDeServicioController {
 
     @Autowired
     private OrdenDeServicioRepository ordenRepository;
-    private OrdenDeServicioRepository ordenRepository;
 
     @GetMapping
     public ResponseEntity<List<OrdenDeServicio>> obtenerOrdenes() {
