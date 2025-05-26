@@ -10,27 +10,32 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Especialidad;
 
-public interface EspecialidadRepository extends JpaRepository<Especialidad, Integer>{
+public interface EspecialidadRepository extends JpaRepository<Especialidad, Long> {
 
-    @Query(value = "SELECT * FROM Especialidad", nativeQuery = true)
+    @Query(value = "SELECT * FROM especialidad", nativeQuery = true)
     Collection<Especialidad> darEspecialidades();
 
-    @Query(value = "SELECT * FROM Especialidad WHERE idEspecialidad = :idEspecialidad", nativeQuery = true)
-    Especialidad darEspecialidad(@Param("idEspecialidad") int idEspecialidad);
+    @Query(value = "SELECT * FROM especialidad WHERE id_especialidad = :idEspecialidad", nativeQuery = true)
+    Especialidad darEspecialidad(@Param("idEspecialidad") Long idEspecialidad);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Especialidad (idEspecialidad, nombre) VALUES(parranderos_sequence.nextval, :nombre)", nativeQuery = true)
-    void insertarEspecialidad(@Param("nombre") String nombre);
+    @Query(value = "INSERT INTO especialidad (id_especialidad, nombre) VALUES (:idEspecialidad, :nombre)", nativeQuery = true)
+    void insertarEspecialidad(
+        @Param("idEspecialidad") Long idEspecialidad,
+        @Param("nombre") String nombre
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Especialidad SET nombre= :nombre WHERE idEspecialidad = :idEspecialidad", nativeQuery = true)
-    void actualizarEspecialidad(@Param("idEspecialidad") int idEspecialidad, @Param("nombre") String nombre);
+    @Query(value = "UPDATE especialidad SET nombre = :nombre WHERE id_especialidad = :idEspecialidad", nativeQuery = true)
+    void actualizarEspecialidad(
+        @Param("idEspecialidad") Long idEspecialidad,
+        @Param("nombre") String nombre
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Especialidad WHERE idEspecialidad = :idEspecialidad", nativeQuery = true)
-    void eliminarEspecialidad(@Param("idEspecialidad") int idEspecialidad);
-    
+    @Query(value = "DELETE FROM especialidad WHERE id_especialidad = :idEspecialidad", nativeQuery = true)
+    void eliminarEspecialidad(@Param("idEspecialidad") Long idEspecialidad);
 }

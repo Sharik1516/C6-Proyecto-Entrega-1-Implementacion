@@ -3,39 +3,55 @@ package uniandes.edu.co.proyecto.modelo;
 import java.io.Serializable;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Embeddable
 public class IPSservicioPK implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "idServicio", referencedColumnName = "idServicio")
-    private Servicio idServicio;
 
-    @ManyToOne
-    @JoinColumn(name = "NIT", referencedColumnName = "NIT")
-    private IPS NIT;
+    private Long idServicio;
+    private Integer nit;
 
-    public IPSservicioPK(Servicio idServicio, IPS NIT) {
-        super();
+    public IPSservicioPK() {
+        // Constructor por defecto requerido por JPA
+    }
+
+    public IPSservicioPK(Long idServicio, Integer nit) {
         this.idServicio = idServicio;
-        this.NIT = NIT;
+        this.nit = nit;
     }
 
-    public void setIdServicio(Servicio idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    public void setNIT(IPS NIT) {
-        this.NIT = NIT;
-    }
-
-    public Servicio getIdServicio() {
+    public Long getIdServicio() {
         return idServicio;
     }
 
-    public IPS getNIT() {
-        return NIT;
+    public void setIdServicio(Long idServicio) {
+        this.idServicio = idServicio;
     }
-    
+
+    public Integer getNit() {
+        return nit;
+    }
+
+    public void setNit(Integer nit) {
+        this.nit = nit;
+    }
+
+    // Opcionalmente: equals() y hashCode() si vas a usar esta PK en operaciones de colección o JPA avanzadas
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof IPSservicioPK)) return false;
+
+        IPSservicioPK that = (IPSservicioPK) o;
+
+        if (!idServicio.equals(that.idServicio)) return false;
+        return nit.equals(that.nit);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = idServicio.hashCode();
+        result = 31 * result + nit.hashCode();
+        return result;
+    }
 }

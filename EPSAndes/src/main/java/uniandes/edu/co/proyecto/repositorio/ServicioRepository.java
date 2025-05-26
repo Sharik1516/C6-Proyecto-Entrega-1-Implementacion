@@ -10,27 +10,34 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Servicio;
 
-public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
-    
-    @Query(value = "SELECT * FROM Servicio", nativeQuery = true)
+public interface ServicioRepository extends JpaRepository<Servicio, Long> {
+
+    @Query(value = "SELECT * FROM servicio", nativeQuery = true)
     Collection<Servicio> darServicios();
 
-    @Query(value = "SELECT * FROM Servicio WHERE idServicio = :idServicio", nativeQuery = true)
-    Servicio darServicio(@Param("idServicio") int idServicio);
+    @Query(value = "SELECT * FROM servicio WHERE id_servicio = :id", nativeQuery = true)
+    Servicio darServicio(@Param("id") Long id);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Servicio (idServicio, nombre, Descripcion) VALUES(parranderos_sequence.nextval, :nombre, :Descripcion)", nativeQuery = true)
-    void insertarServicio(@Param("nombre") String nombre, @Param("Descripcion") String Descripcion);
+    @Query(value = "INSERT INTO servicio (id_servicio, nombre, descripcion) VALUES (:id, :nombre, :descripcion)", nativeQuery = true)
+    void insertarServicio(
+        @Param("id") Long id,
+        @Param("nombre") String nombre,
+        @Param("descripcion") String descripcion
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Servicio SET nombre= :nombre, Descripcion= :Descripcion WHERE idServicio = :idServicio", nativeQuery = true)
-    void actualizarServicio(@Param("idServicio") int idServicio, @Param("nombre") String nombre, @Param("Descripcion") String Descripcion);
+    @Query(value = "UPDATE servicio SET nombre = :nombre, descripcion = :descripcion WHERE id_servicio = :id", nativeQuery = true)
+    void actualizarServicio(
+        @Param("id") Long id,
+        @Param("nombre") String nombre,
+        @Param("descripcion") String descripcion
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Servicio WHERE idServicio = :idServicio", nativeQuery = true)
-    void eliminarServicio(@Param("idServicio") int idServicio);
-    
+    @Query(value = "DELETE FROM servicio WHERE id_servicio = :id", nativeQuery = true)
+    void eliminarServicio(@Param("id") Long id);
 }

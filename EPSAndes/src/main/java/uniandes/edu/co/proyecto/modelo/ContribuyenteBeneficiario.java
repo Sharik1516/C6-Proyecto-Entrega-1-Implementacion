@@ -1,29 +1,24 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-// cambiar porque contribuyente no puede tener contribuyente, hacer un nuevo archivo
 @Table(name = "ContribuyenteBeneficiario")
-public class ContribuyenteBeneficiario  {
+public class ContribuyenteBeneficiario {
 
     @EmbeddedId
     private ContribuyenteBeneficiarioPK pk;
-    
+
     @ManyToOne
     @JoinColumn(name = "idParentesco")
     private Parentesco idParentesco;
 
-    public ContribuyenteBeneficiario(Afiliado idBeneficiario, Afiliado idContribuyente, Parentesco idParentesco) {
-        this.pk = new ContribuyenteBeneficiarioPK(idBeneficiario, idContribuyente);
-        this.idParentesco = idParentesco;
-    }
+    public ContribuyenteBeneficiario() {}
 
-    public ContribuyenteBeneficiario() {;}
+    public ContribuyenteBeneficiario(Afiliado beneficiario, Afiliado contribuyente, Parentesco parentesco) {
+        this.pk = new ContribuyenteBeneficiarioPK(beneficiario, contribuyente);
+        this.idParentesco = parentesco;
+    }
 
     public ContribuyenteBeneficiarioPK getPk() {
         return pk;
@@ -40,7 +35,5 @@ public class ContribuyenteBeneficiario  {
     public void setIdParentesco(Parentesco idParentesco) {
         this.idParentesco = idParentesco;
     }
-
-    
 
 }

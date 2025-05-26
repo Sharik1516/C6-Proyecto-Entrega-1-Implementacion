@@ -1,39 +1,53 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table( name = "medicos" )
-public class Medico extends Usuario
-{
-    private String especialidad;
+@Table(name = "medicos")
+@PrimaryKeyJoinColumn(name = "idUsuario")
+public class Medico extends Usuario {
+
     private String registroMedico;
 
-    public Medico( String nombre, String tipoDocumento, String numeroDocumento, String especialidad, String registroMedico ) 
-    {
-        super( nombre, tipoDocumento, numeroDocumento );
+    @ManyToOne
+    @JoinColumn(name = "idEspecialidad")
+    private Especialidad especialidad;
 
-        this.especialidad = especialidad;
+    @ManyToOne
+    @JoinColumn(name = "idEPS")
+    private EPS eps;
+
+    public Medico() {}
+
+    public Medico(String nombre, String tipoDocumento, String numeroDocumento,
+                  String registroMedico, Especialidad especialidad, EPS eps) {
+        super(nombre, tipoDocumento, numeroDocumento);
         this.registroMedico = registroMedico;
-    }
-
-    public Medico( ){
-
-        
-    }
-
-    public String getEspecialidad( ) {
-        return especialidad;
-    }
-    public void setEspecialidad( String especialidad ) {
         this.especialidad = especialidad;
+        this.eps = eps;
     }
 
-    public String getRegistroMedico( ) {
+    public String getRegistroMedico() {
         return registroMedico;
     }
-    public void setRegistroMedico( String registroMedico ) {
+
+    public void setRegistroMedico(String registroMedico) {
         this.registroMedico = registroMedico;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public EPS getEps() {
+        return eps;
+    }
+
+    public void setEps(EPS eps) {
+        this.eps = eps;
     }
 }

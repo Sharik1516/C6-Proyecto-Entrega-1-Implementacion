@@ -9,30 +9,42 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import uniandes.edu.co.proyecto.modelo.Afiliado;
-import uniandes.edu.co.proyecto.modelo.Medico;
 import uniandes.edu.co.proyecto.modelo.OrdenDeServicio;
 
-public interface OrdenDeServicioRepository extends JpaRepository<OrdenDeServicio, Integer> {
-    @Query(value = "SELECT * FROM OrdenDeServicio", nativeQuery = true)
+public interface OrdenDeServicioRepository extends JpaRepository<OrdenDeServicio, Long> {
+
+    @Query(value = "SELECT * FROM orden_de_servicio", nativeQuery = true)
     Collection<OrdenDeServicio> darOrdenesDeServicio();
 
-    @Query(value = "SELECT * FROM OrdenDeServicio WHERE idOrden = :idOrden", nativeQuery = true)
-    OrdenDeServicio darOrdenDeServicio(@Param("idOrden") int idOrden);
+    @Query(value = "SELECT * FROM orden_de_servicio WHERE id_orden = :idOrden", nativeQuery = true)
+    OrdenDeServicio darOrdenPorId(@Param("idOrden") Long idOrden);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO OrdenDeServicio (idOrden, fecha, estado, idAfiliado, idMedico) VALUES(parranderos_sequence.nextval, :fecha, :estado, :idAfiliado, :idMedico)", nativeQuery = true)
-    void insertarOrdenDeServicio(@Param("fecha") Date fecha, @Param("estado") String estado, @Param("idAfiliado") Afiliado idAfiliado, @Param("idMedico") Medico idMedico);
+    @Query(value = "INSERT INTO orden_de_servicio (id_orden, fecha, estado, id_afiliado, id_medico, id_servicio) VALUES (:idOrden, :fecha, :estado, :idAfiliado, :idMedico, :idServicio)", nativeQuery = true)
+    void insertarOrdenDeServicio(
+        @Param("idOrden") Long idOrden,
+        @Param("fecha") Date fecha,
+        @Param("estado") String estado,
+        @Param("idAfiliado") Long idAfiliado,
+        @Param("idMedico") Long idMedico,
+        @Param("idServicio") Long idServicio
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE OrdenDeServicio SET fecha= :fecha, estado= :estado, idAfiliado= :idAfiliado, idMedico= :idMedico WHERE idOrden = :idOrden", nativeQuery = true)
-    void actualizarOrdenDeServicio(@Param("idOrden") int idOrden, @Param("fecha") Date fecha, @Param("estado") String estado, @Param("idAfiliado") Afiliado idAfiliado, @Param("idMedico") Medico idMedico);
+    @Query(value = "UPDATE orden_de_servicio SET fecha = :fecha, estado = :estado, id_afiliado = :idAfiliado, id_medico = :idMedico, id_servicio = :idServicio WHERE id_orden = :idOrden", nativeQuery = true)
+    void actualizarOrdenDeServicio(
+        @Param("idOrden") Long idOrden,
+        @Param("fecha") Date fecha,
+        @Param("estado") String estado,
+        @Param("idAfiliado") Long idAfiliado,
+        @Param("idMedico") Long idMedico,
+        @Param("idServicio") Long idServicio
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM OrdenDeServicio WHERE idOrden = :idOrden", nativeQuery = true)
-    void eliminarOrdenDeServicio(@Param("idOrden") int idOrden);
-    
+    @Query(value = "DELETE FROM orden_de_servicio WHERE id_orden = :idOrden", nativeQuery = true)
+    void eliminarOrdenDeServicio(@Param("idOrden") Long idOrden);
 }

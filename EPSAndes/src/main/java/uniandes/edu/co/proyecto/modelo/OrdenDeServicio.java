@@ -1,45 +1,42 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import jakarta.persistence.*;
+
 import java.sql.Date;
 
-//Sirve
 @Entity
-@Table(name = "OrdenDeServicio")
+@Table(name = "ordenes_servicio")
 public class OrdenDeServicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idOrden;
+    private Long idOrden;
 
-    @Temporal(TemporalType.DATE)
     private Date fecha;
-
     private String estado;
 
     @ManyToOne
-    @JoinColumn(name = "idAfiliado")
-    private Afiliado idAfiliado;
+    @JoinColumn(name = "id_afiliado")
+    private Afiliado afiliado;
 
     @ManyToOne
-    @JoinColumn(name = "idMedico")
-    private Medico idMedico;
+    @JoinColumn(name = "id_medico")
+    private Medico medico;
 
-    public OrdenDeServicio(Integer idOrden, Date fecha, String estado, Afiliado idAfiliado, Medico idMedico) {
-        this.idOrden = idOrden;
+    public OrdenDeServicio() {}
+
+    public OrdenDeServicio(Date fecha, String estado, Afiliado afiliado, Medico medico) {
         this.fecha = fecha;
         this.estado = estado;
-        this.idAfiliado = idAfiliado;
-        this.idMedico = idMedico;
+        this.afiliado = afiliado;
+        this.medico = medico;
     }
 
-    public OrdenDeServicio() {;}
-
-    public Integer getIdOrden() {
+    public Long getIdOrden() {
         return idOrden;
     }
 
-    public void setIdOrden(Integer idOrden) {
+    public void setIdOrden(Long idOrden) {
         this.idOrden = idOrden;
     }
 
@@ -59,31 +56,19 @@ public class OrdenDeServicio {
         this.estado = estado;
     }
 
-    public Afiliado getIdAfiliado() {
-        return idAfiliado;
+    public Afiliado getAfiliado() {
+        return afiliado;
     }
 
-    public void setIdAfiliado(Afiliado idAfiliado) {
-        this.idAfiliado = idAfiliado;
+    public void setAfiliado(Afiliado afiliado) {
+        this.afiliado = afiliado;
     }
 
-    public Medico getIdMedico() {
-        return idMedico;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setIdMedico(Medico idMedico) {
-        this.idMedico = idMedico;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
-
-    /* 
-    @Service
-    public class OrdenServicioService {
-        @Autowired
-        private OrdenServicioRepository ordenServicioRepository;
-
-        public OrdenServicio registrarOrden(OrdenServicio orden) {
-            return ordenServicioRepository.save(orden);
-        }
-    }
-        */
 }

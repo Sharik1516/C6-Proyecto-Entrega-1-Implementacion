@@ -1,21 +1,33 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "IPSservicio")
 public class IPSservicio {
+
     @EmbeddedId
     private IPSservicioPK pk;
-    private String Agenda;
 
-    public IPSservicio() {;}
+    @ManyToOne
+    @MapsId("idServicio")
+    @JoinColumn(name = "idServicio")
+    private Servicio servicio;
 
-    public IPSservicio(Servicio idServicio, IPS NIT, String Agenda) {
-        this.Agenda = Agenda;
-        this.pk = new IPSservicioPK(idServicio, NIT);
+    @ManyToOne
+    @MapsId("nit")
+    @JoinColumn(name = "NIT")
+    private IPS ips;
+
+    private String agenda;
+
+    public IPSservicio() {}
+
+    public IPSservicio(Servicio servicio, IPS ips, String agenda) {
+        this.pk = new IPSservicioPK(servicio.getIdServicio(), ips.getNIT());
+        this.servicio = servicio;
+        this.ips = ips;
+        this.agenda = agenda;
     }
 
     public IPSservicioPK getPk() {
@@ -26,33 +38,27 @@ public class IPSservicio {
         this.pk = pk;
     }
 
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
+    public IPS getIps() {
+        return ips;
+    }
+
+    public void setIps(IPS ips) {
+        this.ips = ips;
+    }
+
     public String getAgenda() {
-        return Agenda;
+        return agenda;
     }
 
     public void setAgenda(String agenda) {
-        Agenda = agenda;
+        this.agenda = agenda;
     }
-    
-
-    
-/* 
-    @Service
-    public class IPSService {
-        @Autowired
-        private IPSRepository ipsRepository;
-        @Autowired
-        private ServicioSaludRepository servicioSaludRepository;
-
-        public void asignarServicioAIPS(Long ipsId, Long servicioId) {
-            IPS ips = ipsRepository.findById(ipsId)
-                    .orElseThrow(() -> new RuntimeException("IPS no encontrada"));
-            ServicioSalud servicio = servicioSaludRepository.findById(servicioId)
-                    .orElseThrow(() -> new RuntimeException("Servicio de salud no encontrado"));
-
-            ips.getServicios().add(servicio);
-            ipsRepository.save(ips);
-        }
-    }
-        */
 }

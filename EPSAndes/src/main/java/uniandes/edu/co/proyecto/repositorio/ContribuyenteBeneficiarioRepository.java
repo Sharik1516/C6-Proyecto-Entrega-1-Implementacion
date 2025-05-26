@@ -10,28 +10,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.ContribuyenteBeneficiario;
 import uniandes.edu.co.proyecto.modelo.ContribuyenteBeneficiarioPK;
-import uniandes.edu.co.proyecto.modelo.Parentesco;
 
-public interface ContribuyenteBeneficiarioRepository extends JpaRepository<ContribuyenteBeneficiario, ContribuyenteBeneficiarioPK>{
-    
-    @Query(value = "SELECT * FROM ContribuyenteBeneficiario", nativeQuery = true)
+public interface ContribuyenteBeneficiarioRepository extends JpaRepository<ContribuyenteBeneficiario, ContribuyenteBeneficiarioPK> {
+
+    @Query(value = "SELECT * FROM contribuyente_beneficiario", nativeQuery = true)
     Collection<ContribuyenteBeneficiario> darContribuyentesBeneficiarios();
 
-    @Query(value = "SELECT * FROM ContribuyenteBeneficiario WHERE pk = :pk", nativeQuery = true)
-    ContribuyenteBeneficiario darContribuyenteBeneficiario(@Param("pk") ContribuyenteBeneficiarioPK pk);
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO contribuyente_beneficiario (id_contribuyente, id_beneficiario, id_parentesco) VALUES (:idContribuyente, :idBeneficiario, :idParentesco)", nativeQuery = true)
+    void insertarContribuyenteBeneficiario(
+        @Param("idContribuyente") Long idContribuyente,
+        @Param("idBeneficiario") Long idBeneficiario,
+        @Param("idParentesco") Long idParentesco
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO ContribuyenteBeneficiario (pk, idParentesco) VALUES(parranderos_sequence.nextval, :idParentesco)", nativeQuery = true)
-    void insertarContribuyenteBeneficiario(@Param("idParentesco") Parentesco idParentesco);
-
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE ContribuyenteBeneficiario SET idParentesco= :idParentesco WHERE pk = :pk", nativeQuery = true)
-    void actualizarContribuyenteBeneficiario(@Param("pk") ContribuyenteBeneficiarioPK pk, @Param("idParentesco") Parentesco idParentesco);
-
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM ContribuyenteBeneficiario WHERE pk = :pk", nativeQuery = true)
-    void eliminarContribuyenteBeneficiario(@Param("pk") ContribuyenteBeneficiarioPK pk);
+    @Query(value = "DELETE FROM contribuyente_beneficiario WHERE id_contribuyente = :idContribuyente AND id_beneficiario = :idBeneficiario", nativeQuery = true)
+    void eliminarContribuyenteBeneficiario(
+        @Param("idContribuyente") Long idContribuyente,
+        @Param("idBeneficiario") Long idBeneficiario
+    );
 }

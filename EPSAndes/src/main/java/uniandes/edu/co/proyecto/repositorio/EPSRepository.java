@@ -10,27 +10,34 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.EPS;
 
-public interface EPSRepository extends JpaRepository<EPS, Integer>{
+public interface EPSRepository extends JpaRepository<EPS, Long> {
 
-    @Query(value = "SELECT * FROM EPS", nativeQuery = true)
-    Collection<EPS> darEPSES();
+    @Query(value = "SELECT * FROM eps", nativeQuery = true)
+    Collection<EPS> darEPS();
 
-    @Query(value = "SELECT * FROM EPS WHERE idEPS = :idEPS", nativeQuery = true)
-    EPS darEPS(@Param("idEPS") int idEPS);
-
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO EPS (idEPS, nombre, direccion, telefono) VALUES(parranderos_sequence.nextval, :nombre, :direccion, :telefono)", nativeQuery = true)
-    void insertarEPS(@Param("nombre") String nombre, @Param("direccion") String direccion, @Param("telefono") String telefono);
+    @Query(value = "SELECT * FROM eps WHERE id_eps = :idEPS", nativeQuery = true)
+    EPS darEPSPorId(@Param("idEPS") Long idEPS);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE EPS SET nombre= :nombre, direccion= :direccion, telefono= :telefono WHERE idEPS = :idEPS", nativeQuery = true)
-    void actualizarEPS(@Param("idEPS") int idEPS, @Param("nombre") String nombre, @Param("direccion") String direccion, @Param("telefono") String telefono);
+    @Query(value = "INSERT INTO eps (id_eps, nombre, tipo) VALUES (:idEPS, :nombre, :tipo)", nativeQuery = true)
+    void insertarEPS(
+        @Param("idEPS") Long idEPS,
+        @Param("nombre") String nombre,
+        @Param("tipo") String tipo
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM EPS WHERE idEPS = :idEPS", nativeQuery = true)
-    void eliminarEPS(@Param("idEPS") int idEPS);
-    
+    @Query(value = "UPDATE eps SET nombre = :nombre, tipo = :tipo WHERE id_eps = :idEPS", nativeQuery = true)
+    void actualizarEPS(
+        @Param("idEPS") Long idEPS,
+        @Param("nombre") String nombre,
+        @Param("tipo") String tipo
+    );
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM eps WHERE id_eps = :idEPS", nativeQuery = true)
+    void eliminarEPS(@Param("idEPS") Long idEPS);
 }

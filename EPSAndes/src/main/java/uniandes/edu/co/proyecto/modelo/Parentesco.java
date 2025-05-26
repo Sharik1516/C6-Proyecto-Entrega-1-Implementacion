@@ -1,35 +1,36 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Parentesco")
+@Table(name = "parentescos")
 public class Parentesco {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idParentesco;
-    private String Descripcion;
+    private Long idParentesco;
+
+    private String descripcion;
+
+    public Parentesco() {}
+
     public Parentesco(String descripcion) {
-        Descripcion = descripcion;
+        this.descripcion = descripcion;
     }
-    public Parentesco() {;}
-    public Integer getIdParentesco() {
+
+    public Long getIdParentesco() {
         return idParentesco;
     }
-    public void setIdParentesco(Integer idParentesco) {
+
+    public void setIdParentesco(Long idParentesco) {
         this.idParentesco = idParentesco;
     }
+
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+        this.descripcion = descripcion;
     }
-
-    
-
 }

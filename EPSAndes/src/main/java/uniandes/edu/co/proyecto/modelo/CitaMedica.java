@@ -1,23 +1,17 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import java.sql.Date;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.util.Date;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "CitaMedica")
 public class CitaMedica {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCita;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaHora;
 
     @ManyToOne
@@ -26,19 +20,28 @@ public class CitaMedica {
 
     @ManyToOne
     @JoinColumn(name = "NIT")
-    private IPS NIT;
+    private IPS ips;
 
-    public CitaMedica(Integer idCita, Date fechaHora, OrdenDeServicio idOrden, IPS nIT) {
-        this.idCita = idCita;
+    @ManyToOne
+    @JoinColumn(name = "idMedico")
+    private Medico medico;
+
+    @ManyToOne
+    @JoinColumn(name = "idAfiliado")
+    private Afiliado afiliado;
+
+    public CitaMedica() {}
+
+    public CitaMedica(Date fechaHora, OrdenDeServicio idOrden, IPS ips, Medico medico, Afiliado afiliado) {
         this.fechaHora = fechaHora;
         this.idOrden = idOrden;
-        NIT = nIT;
+        this.ips = ips;
+        this.medico = medico;
+        this.afiliado = afiliado;
     }
 
-    public CitaMedica() {;}
-
     public Integer getIdCita() {
-        return idCita;
+    return idCita;
     }
 
     public void setIdCita(Integer idCita) {
@@ -61,53 +64,28 @@ public class CitaMedica {
         this.idOrden = idOrden;
     }
 
-    public IPS getNIT() {
-        return NIT;
+    public IPS getIps() {
+        return ips;
     }
 
-    public void setNIT(IPS nIT) {
-        NIT = nIT;
+    public void setIps(IPS ips) {
+        this.ips = ips;
     }
 
-    
-    
-/* 
-    @Service
-    public class CitaMedicaService {
-        @Autowired
-        private CitaMedicaRepository citaMedicaRepository;
-        @Autowired
-        private OrdenServicioRepository ordenServicioRepository;
-        @Autowired
-        private IPSRepository ipsRepository;
-
-        public CitaMedica agendarCita(Long ordenId, Long ipsId, LocalDateTime fechaHora) {
-            OrdenServicio orden = ordenServicioRepository.findById(ordenId)
-                    .orElseThrow(() -> new RuntimeException("Orden de servicio no encontrada"));
-            IPS ips = ipsRepository.findById(ipsId)
-                    .orElseThrow(() -> new RuntimeException("IPS no encontrada"));
-
-            CitaMedica cita = new CitaMedica();
-            cita.setOrden(orden);
-            cita.setIps(ips);
-            cita.setFechaHora(fechaHora);
-
-            return citaMedicaRepository.save(cita);
-        }
+    public Medico getMedico() {
+        return medico;
     }
-    @Service
-    public class CitaMedicaServiceRF8 {
-        @Autowired
-        private CitaMedicaRepository citaMedicaRepository;
-        @Autowired
-        private AfiliadoRepository afiliadoRepository;
 
-        public List<CitaMedica> obtenerCitasPorAfiliado(Long afiliadoId) {
-            Afiliado afiliado = afiliadoRepository.findById(afiliadoId)
-                    .orElseThrow(() -> new RuntimeException("Afiliado no encontrado"));
-
-            return citaMedicaRepository.findByOrden_Afiliado(afiliado);
-        }
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
-*/
+
+    public Afiliado getAfiliado() {
+        return afiliado;
+    }
+
+    public void setAfiliado(Afiliado afiliado) {
+        this.afiliado = afiliado;
+    }
+
 }

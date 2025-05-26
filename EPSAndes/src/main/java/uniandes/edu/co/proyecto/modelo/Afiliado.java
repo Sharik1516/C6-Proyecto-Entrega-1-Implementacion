@@ -1,12 +1,11 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import java.sql.Date;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="afiliados")
+@Table(name = "afiliados")
+@PrimaryKeyJoinColumn(name = "idUsuario")
 public class Afiliado extends Usuario {
 
     private Date fechaNacimiento;
@@ -14,7 +13,8 @@ public class Afiliado extends Usuario {
     private String telefono;
     private String tipoAfiliado;
 
-    public Afiliado(String nombre, String tipoDocumento, String numeroDocumento, Date fechaNacimiento, String direccion, String telefono, String tipoAfiliado) {
+    public Afiliado(String nombre, String tipoDocumento, String numeroDocumento,
+                    Date fechaNacimiento, String direccion, String telefono, String tipoAfiliado) {
         super(nombre, tipoDocumento, numeroDocumento);
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;

@@ -1,29 +1,26 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="EPS")
+@Table(name = "EPS")
 public class EPS {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idEPS;
+
     private String nombre;
     private String direccion;
     private String telefono;
+
+    public EPS() {}
+
     public EPS(String nombre, String direccion, String telefono) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
     }
-
-    public EPS(){;}
 
     public Integer getIdEPS() {
         return idEPS;
@@ -56,7 +53,4 @@ public class EPS {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    
-
 }

@@ -10,27 +10,32 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Parentesco;
 
-public interface ParentescoRepository extends JpaRepository<Parentesco, Integer> {
-    
-    @Query(value = "SELECT * FROM Parentesco", nativeQuery = true)
+public interface ParentescoRepository extends JpaRepository<Parentesco, Long> {
+
+    @Query(value = "SELECT * FROM parentesco", nativeQuery = true)
     Collection<Parentesco> darParentescos();
 
-    @Query(value = "SELECT * FROM Parentesco WHERE idParentesco = :idParentesco", nativeQuery = true)
-    Parentesco darParentesco(@Param("idParentesco") int idParentesco);
+    @Query(value = "SELECT * FROM parentesco WHERE id_parentesco = :idParentesco", nativeQuery = true)
+    Parentesco darParentescoPorId(@Param("idParentesco") Long idParentesco);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Parentesco (idParentesco, Descripcion) VALUES(parranderos_sequence.nextval, :Descripcion)", nativeQuery = true)
-    void insertarParentesco(@Param("Descripcion") String Descripcion);
+    @Query(value = "INSERT INTO parentesco (id_parentesco, descripcion) VALUES (:idParentesco, :descripcion)", nativeQuery = true)
+    void insertarParentesco(
+        @Param("idParentesco") Long idParentesco,
+        @Param("descripcion") String descripcion
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Parentesco SET Descripcion= :Descripcion WHERE idParentesco = :idParentesco", nativeQuery = true)
-    void actualizarParentesco(@Param("idParentesco") int idParentesco, @Param("Descripcion") String Descripcion);
+    @Query(value = "UPDATE parentesco SET descripcion = :descripcion WHERE id_parentesco = :idParentesco", nativeQuery = true)
+    void actualizarParentesco(
+        @Param("idParentesco") Long idParentesco,
+        @Param("descripcion") String descripcion
+    );
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Parentesco WHERE idParentesco = :idParentesco", nativeQuery = true)
-    void eliminarParentesco(@Param("idParentesco") int idParentesco);
-    
+    @Query(value = "DELETE FROM parentesco WHERE id_parentesco = :idParentesco", nativeQuery = true)
+    void eliminarParentesco(@Param("idParentesco") Long idParentesco);
 }

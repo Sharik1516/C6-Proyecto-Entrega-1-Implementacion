@@ -1,63 +1,59 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import jakarta.persistence.*;
+
 import java.sql.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name="Prestaciones")
+@Table(name = "prestaciones")
 public class Prestaciones {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
 
-    private Integer idPrestacion;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idPrestacion;
+
     @ManyToOne
-    @JoinColumn(name = "idCita")
-    private CitaMedica idCita;
+    @JoinColumn(name = "id_cita")
+    private CitaMedica cita;
+
     @ManyToOne
-    @JoinColumn(name = "idServicio")
-    private Servicio idServicio;
+    @JoinColumn(name = "id_servicio")
+    private Servicio servicio;
+
     private Date fechaInicio;
     private Date fechaFinal;
 
-    public Prestaciones(Integer idPrestacion, CitaMedica idCita, Servicio idServicio, Date fechaInicio, Date fechaFinal) {
-        this.idPrestacion = idPrestacion;
-        this.idCita = idCita;
-        this.idServicio = idServicio;
+    public Prestaciones() {}
+
+    public Prestaciones(CitaMedica cita, Servicio servicio, Date fechaInicio, Date fechaFinal) {
+        this.cita = cita;
+        this.servicio = servicio;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
     }
 
-    public Prestaciones() {;}
-
-    public Integer getIdPrestacion() {
+    public Long getIdPrestacion() {
         return idPrestacion;
     }
 
-    public void setIdPrestacion(Integer idPrestacion) {
+    public void setIdPrestacion(Long idPrestacion) {
         this.idPrestacion = idPrestacion;
     }
 
-    public CitaMedica getIdCita() {
-        return idCita;
+    public CitaMedica getCita() {
+        return cita;
     }
 
-    public void setIdCita(CitaMedica idCita) {
-        this.idCita = idCita;
+    public void setCita(CitaMedica cita) {
+        this.cita = cita;
     }
 
-    public Servicio getIdServicio() {
-        return idServicio;
+    public Servicio getServicio() {
+        return servicio;
     }
 
-    public void setIdServicio(Servicio idServicio) {
-        this.idServicio = idServicio;
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 
     public Date getFechaInicio() {
@@ -75,9 +71,4 @@ public class Prestaciones {
     public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
-
-    
-
-    
-    
 }

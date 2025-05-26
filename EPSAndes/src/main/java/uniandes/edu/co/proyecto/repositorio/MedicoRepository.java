@@ -10,27 +10,36 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Medico;
 
-public interface MedicoRepository extends JpaRepository<Medico, Integer> {
+public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
-    @Query( value = "SELECT u.*, m.ESPECIALIDAD, m.REGISTRO_MEDICO FROM MEDICOS m RIGHT JOIN USUARIOS u ON m.id = u.id", nativeQuery = true )
-    Collection<Medico> darMedicos( );
+    @Query(value = "SELECT * FROM medicos", nativeQuery = true)
+    Collection<Medico> darMedicos();
 
-    @Query( value = "SELECT u.*, m.ESPECIALIDAD, m.REGISTRO_MEDICO FROM MEDICOS m RIGHT JOIN USUARIOS u ON m.id = u.id WHERE u.id = :id", nativeQuery = true )
-    Medico obtenerMedico( @Param("id") Integer id );
-
-    @Modifying
-    @Transactional
-    @Query( value = "INSERT INTO medicos( id, especialidad, registro_medico ) VALUES( :id, :especialidad, :registroMedico )", nativeQuery = true )
-    void insertarMedico( @Param("id") Integer id, @Param("especialidad") String especialidad, @Param("registroMedico") String registroMedico );
+    @Query(value = "SELECT * FROM medicos WHERE id_usuario = :idUsuario", nativeQuery = true)
+    Medico obtenerMedico(@Param("idUsuario") Long idUsuario);
 
     @Modifying
     @Transactional
-    @Query( value = "UPDATE medicos SET especialidad = :especialidad, registro_medico = :registroMedico WHERE id = :id", nativeQuery = true )
-    void actualizarMedico( @Param("id") Integer id, @Param("especialidad") String especialidad, @Param("registroMedico") String registroMedico );
+    @Query(value = "INSERT INTO medicos (id_usuario, registro_medico, id_especialidad, id_eps) VALUES (:idUsuario, :registroMedico, :idEspecialidad, :idEPS)", nativeQuery = true)
+    void insertarMedico(
+        @Param("idUsuario") Long idUsuario,
+        @Param("registroMedico") String registroMedico,
+        @Param("idEspecialidad") Long idEspecialidad,
+        @Param("idEPS") Long idEPS
+    );
 
     @Modifying
     @Transactional
-    @Query( value = "DELETE FROM medicos WHERE id = :id", nativeQuery = true )
-    void eliminarMedico( @Param("id") Integer id );
-    
+    @Query(value = "UPDATE medicos SET registro_medico = :registroMedico, id_especialidad = :idEspecialidad, id_eps = :idEPS WHERE id_usuario = :idUsuario", nativeQuery = true)
+    void actualizarMedico(
+        @Param("idUsuario") Long idUsuario,
+        @Param("registroMedico") String registroMedico,
+        @Param("idEspecialidad") Long idEspecialidad,
+        @Param("idEPS") Long idEPS
+    );
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM medicos WHERE id_usuario = :idUsuario", nativeQuery = true)
+    void eliminarMedico(@Param("idUsuario") Long idUsuario);
 }

@@ -1,119 +1,29 @@
 package uniandes.edu.co.proyecto.controller;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import uniandes.edu.co.proyecto.modelo.Medico;
 import uniandes.edu.co.proyecto.repositorio.MedicoRepository;
-import uniandes.edu.co.proyecto.repositorio.UsuarioRepository;
+
+import java.util.List;
 
 @RestController
-@RequestMapping( "/medicos" )
-public class MedicoController 
-{
+@RequestMapping("/medicos")
+public class MedicoController {
+
     @Autowired
     private MedicoRepository medicoRepository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MedicoController.class);
-
     @GetMapping
-    public ResponseEntity<?> obtenerMedicos( ) 
-    {
-        try
-        {
-            Collection<Medico> medicos = medicoRepository.darMedicos( );
-            return ResponseEntity.ok( medicos );
-
-        } catch (Exception e) {
-            log.error("Error al ....", e);
-            // Este map dará visibilidad de qué está fallando
-            Map<String, String> error = new HashMap<>();
-            error.put("message", e.getMessage());
-            error.put("exception", e.getClass().getSimpleName());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
-        }
-    }
-
-    @GetMapping( "/{id}" )
-    public ResponseEntity<Medico> obtenerMedico( @PathVariable Integer id ) 
-    {
-        try
-        {
-            Medico medico = medicoRepository.obtenerMedico( id );
-            if ( medico != null ) {
-                return ResponseEntity.ok( medico );
-            }
-            else {
-                return ResponseEntity.notFound( ).build( );
-            }
-        }
-        catch ( Exception e ) {
-            return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR ).build( );
-        }
+    public ResponseEntity<List<Medico>> obtenerMedicos() {
+        return ResponseEntity.ok(medicoRepository.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<Medico> crearMedico( @RequestBody Medico medico ) 
-    {
-        try
-        {
-            medico.setId( usuarioRepository.obtenerSiguienteId() );
-
-            medicoRepository.actualizarMedico( medico.getId(), medico.getEspecialidad(), medico.getRegistroMedico() );
-            usuarioRepository.actualizarUsuario( medico.getId(), medico.getNombre(), medico.getTipoDocumento(), medico.getNumeroDocumento() );
-            
-            return ResponseEntity.status( HttpStatus.CREATED ).body( medico );
-        }
-        catch ( Exception e ) {
-            return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR ).build();
-        }
-    }
-
-    @PutMapping( "/{id}" )
-    public ResponseEntity<Medico> actualizarMedico( @PathVariable("id") Integer id, @RequestBody Medico medico ) 
-    {
-        try
-        {
-            medico.setId( id );
-            
-            medicoRepository.actualizarMedico( id, medico.getEspecialidad(), medico.getRegistroMedico() );
-            usuarioRepository.actualizarUsuario( id, medico.getNombre(), medico.getTipoDocumento(), medico.getNumeroDocumento() );
-            
-            return ResponseEntity.ok( medico );
-        }
-        catch ( Exception e ) {
-            return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR ).build();
-        }
-    }
-
-    @DeleteMapping( "/{id}" )
-    public ResponseEntity<String> medicoEliminar( @PathVariable("id") Integer id ) 
-    {
-        try
-        {
-            medicoRepository.eliminarMedico( id );
-            usuarioRepository.eliminarUsuario( id );
-
-            return ResponseEntity.noContent().build();
-        }
-        catch ( Exception e ) {
-            return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR ).body( "Error al eliminar el medico" );
-        }
+    public ResponseEntity<Medico> crearMedico(@RequestBody Medico medico) {
+        Medico nuevo = medicoRepository.save(medico);
+        return ResponseEntity.ok(nuevo);
     }
 }

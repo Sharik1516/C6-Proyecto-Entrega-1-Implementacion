@@ -1,61 +1,29 @@
 package uniandes.edu.co.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import uniandes.edu.co.proyecto.modelo.Servicio;
 import uniandes.edu.co.proyecto.repositorio.ServicioRepository;
 
-@Controller
+import java.util.List;
+
+@RestController
+@RequestMapping("/servicios")
 public class ServicioController {
-    
+
     @Autowired
     private ServicioRepository servicioRepository;
 
-    @GetMapping("/servicios")
-    public String servicios(Model model) {
-        model.addAttribute("servicios", servicioRepository.darServicios());
-        return "servicios";
-    }
-    
-    @GetMapping("/servicios/new")
-    public String servicioform(Model model) {
-        model.addAttribute("servicio", new Servicio());
-        return "servicioNuevo";
+    @GetMapping
+    public ResponseEntity<List<Servicio>> obtenerServicios() {
+        return ResponseEntity.ok(servicioRepository.findAll());
     }
 
-    @PostMapping("/servicios/new/save")
-    public String servicioGuardar(@ModelAttribute Servicio servicio) {
-        servicioRepository.insertarServicio(servicio.getNombre(), servicio.getDescripcion());
-        return "redirect:/servicios";
-    }
-    
-    @GetMapping("/servicios/{id}/edit")
-    public String servicioEditarForm(@PathVariable("id") int id, Model model) {
-        Servicio servicio = servicioRepository.darServicio(id);
-        if(servicio != null) {
-            model.addAttribute("servicio", servicio);
-            return "servicioEditar";
-        }else {
-            return "redirect:/servicios";
-        }
-        
-    }
-
-    @PostMapping("/servicios/{id}/edit/save")
-    public String servicioEditarGuardar(@PathVariable("id") int id, @ModelAttribute Servicio servicio) {
-        servicioRepository.actualizarServicio(id, servicio.getNombre(), servicio.getDescripcion());
-        return "redirect:/servicios";
-    }
-
-    @GetMapping("/servicios/{id}/delete")
-    public String servicioEliminar(@PathVariable("id") int id) {
-        servicioRepository.eliminarServicio(id);
-        return "redirect:/servicios";
+    @PostMapping
+    public ResponseEntity<Servicio> crearServicio(@RequestBody Servicio servicio) {
+        Servicio nuevo = servicioRepository.save(servicio);
+        return ResponseEntity.ok(nuevo);
     }
 }
